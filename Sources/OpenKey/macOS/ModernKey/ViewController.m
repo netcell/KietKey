@@ -42,6 +42,7 @@ extern int vPerformLayoutCompat;
 @implementation ViewController {
     __weak IBOutlet NSButton *CustomSwitchCommand;
     __weak IBOutlet NSButton *CustomSwitchOption;
+    __weak IBOutlet NSButton *CustomSwitchFn;
     __weak IBOutlet NSButton *CustomSwitchControl;
     __weak IBOutlet NSButton *CustomSwitchShift;
     __weak IBOutlet MyTextField *CustomSwitchKey;
@@ -236,6 +237,13 @@ extern int vPerformLayoutCompat;
     NSInteger val = [self setCustomValue:sender keyToSet:@"FixRecommendBrowser"];
     vFixRecommendBrowser = (int)val;
     [self.FixChromiumBrowser setEnabled:val];
+}
+
+- (IBAction)onFnSwitchKey:(NSButton *)sender {
+    NSInteger val = [self setCustomValue:sender keyToSet:nil];
+    vSwitchKeyStatus &= (~0x1000);
+    vSwitchKeyStatus |= val << 12;
+    [[NSUserDefaults standardUserDefaults] setInteger:vSwitchKeyStatus forKey:@"SwitchKeyStatus"];
 }
 
 - (IBAction)onControlSwitchKey:(NSButton *)sender {
@@ -478,6 +486,7 @@ extern int vPerformLayoutCompat;
     value = [[NSUserDefaults standardUserDefaults] integerForKey:@"vPerformLayoutCompat"];
     self.PerformLayoutCompat.state = value ? NSControlStateValueOn : NSControlStateValueOff;
     
+    CustomSwitchFn.state = (vSwitchKeyStatus & 0x1000) ? NSControlStateValueOn : NSControlStateValueOff;
     CustomSwitchControl.state = (vSwitchKeyStatus & 0x100) ? NSControlStateValueOn : NSControlStateValueOff;
     CustomSwitchOption.state = (vSwitchKeyStatus & 0x200) ? NSControlStateValueOn : NSControlStateValueOff;
     CustomSwitchCommand.state = (vSwitchKeyStatus & 0x400) ? NSControlStateValueOn : NSControlStateValueOff;
