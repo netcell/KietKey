@@ -351,6 +351,10 @@ extern int vPerformLayoutCompat;
     vOtherLanguage = (int)val;
 }
 
+- (IBAction)onLockInputSourceABC:(id)sender {
+    [self setCustomValue:sender keyToSet:@"vLockInputSourceABC"];
+}
+
 
 - (IBAction)onAutoCapsMacro:(id)sender {
     NSInteger val = [self setCustomValue:sender keyToSet:@"vAutoCapsMacro"];
@@ -454,6 +458,9 @@ extern int vPerformLayoutCompat;
     
     value = [[NSUserDefaults standardUserDefaults] integerForKey:@"vOtherLanguage"];
     self.OtherLanguage.state = value ? NSControlStateValueOn : NSControlStateValueOff;
+    
+    value = [[NSUserDefaults standardUserDefaults] integerForKey:@"vLockInputSourceABC"];
+    self.LockInputSourceABC.state = value ? NSControlStateValueOn : NSControlStateValueOff;
     
     value = [[NSUserDefaults standardUserDefaults] integerForKey:@"vTempOffOpenKey"];
     self.TempOffOpenKey.state = value ? NSControlStateValueOn : NSControlStateValueOff;

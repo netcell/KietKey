@@ -14,11 +14,17 @@ extern int vLanguage;
 static BOOL _isSelectingProgrammatically = NO;
 static BOOL _isObserving = NO;
 
-static BOOL isFeatureEnabled(void) {
+/// Tự tắt tiếng Việt khi bộ gõ hệ thống không phải tiếng Anh (mặc định bật).
+static BOOL isSyncEnabled(void) {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"SyncWithSystemInputSource"] == nil)
         return YES; //bật sẵn
     return [defaults integerForKey:@"SyncWithSystemInputSource"] != 0;
+}
+
+/// Khoá bộ gõ hệ thống ở ABC khi đang bật tiếng Việt (mặc định tắt).
+static BOOL isLockEnabled(void) {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"vLockInputSourceABC"] != 0;
 }
 
 /// Ngôn ngữ chính của một input source có phải tiếng Anh không.
@@ -44,9 +50,8 @@ BOOL InputSourceSyncIsCurrentEnglish(void) {
     return result;
 }
 
-void InputSourceSyncSelectEnglish(void) {
-    if (!isFeatureEnabled())
-        return;
+/// Đổi về bàn phím tiếng Anh, không qua bất kỳ gate nào.
+static void selectEnglishNow(void) {
     if (InputSourceSyncIsCurrentEnglish())
         return;
 
@@ -94,6 +99,41 @@ void InputSourceSyncSelectEnglish(void) {
     CFRelease(sources);
 }
 
+void InputSourceSyncSelectEnglish(void) {
+    //cả hai tính năng đều cần hệ thống ở tiếng Anh khi bật tiếng Việt
+    if (isSyncEnabled() || isLockEnabled())
+        selectEnglishNow();
+}
+
+/// Chống ping-pong: nếu hệ thống liên tục đổi lại, ngừng kéo về ABC một lúc
+/// thay vì giành nhau vô hạn.
+static BOOL shouldThrottleRevert(void) {
+    static const int kMaxReverts = 5;
+    static const NSTimeInterval kWindow = 2.0;   //cửa sổ đếm
+    static const NSTimeInterval kCooldown = 5.0; //nghỉ sau khi vượt ngưỡng
+
+    static int count = 0;
+    static NSTimeInterval windowStart = 0;
+    static NSTimeInterval cooldownUntil = 0;
+
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+
+    if (now < cooldownUntil)
+        return YES;
+
+    if (now - windowStart > kWindow) {
+        windowStart = now;
+        count = 0;
+    }
+    if (++count > kMaxReverts) {
+        cooldownUntil = now + kCooldown;
+        count = 0;
+        windowStart = now;
+        return YES;
+    }
+    return NO;
+}
+
 static void onInputSourceChanged(CFNotificationCenterRef center,
                                  void* observer,
                                  CFNotificationName name,
@@ -101,11 +141,20 @@ static void onInputSourceChanged(CFNotificationCenterRef center,
                                  CFDictionaryRef userInfo) {
     if (_isSelectingProgrammatically)
         return;
-    if (!isFeatureEnabled())
+    if (vLanguage != 1)
+        return; //đang ở tiếng Anh thì để người dùng tự do đổi bộ gõ
+    if (InputSourceSyncIsCurrentEnglish())
         return;
 
-    //macOS đổi sang bộ gõ không phải tiếng Anh -> nhường quyền, tắt tiếng Việt
-    if (!InputSourceSyncIsCurrentEnglish() && vLanguage == 1) {
+    if (isLockEnabled()) {
+        //Khoá: giữ tiếng Việt, kéo bộ gõ hệ thống về ABC ngay.
+        if (shouldThrottleRevert())
+            return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            selectEnglishNow();
+        });
+    } else if (isSyncEnabled()) {
+        //Không khoá: nhường quyền cho bộ gõ hệ thống, tắt tiếng Việt.
         dispatch_async(dispatch_get_main_queue(), ^{
             [appDelegate setVietnameseEnabled:NO];
         });

@@ -57,6 +57,7 @@
 
 @property (weak) IBOutlet NSButton *RememberTableCode;
 @property (weak) IBOutlet NSButtonCell *OtherLanguage;
+@property (weak) IBOutlet NSButton *LockInputSourceABC;
 
 @property (weak) IBOutlet NSButton *TempOffOpenKey;
 @property (weak) IBOutlet NSButton *AutoCapsMacro;

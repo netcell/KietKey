@@ -1186,6 +1186,17 @@
                                                 </connections>
                                             </buttonCell>
                                         </button>
+                                        <button toolTip="Khi đang bật tiếng Việt, không cho chuyển bộ gõ hệ thống sang bộ gõ khác. Muốn dùng bộ gõ của macOS thì tắt tiếng Việt của KietKey trước." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AA0200000000000000001101">
+                                            <rect key="frame" x="345" y="23" width="170" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Khoá bộ gõ ở ABC" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AA0200000000000000001102">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="onLockInputSourceABC:" target="XfG-lQ-9wD" id="AA0200000000000000001103"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="unemphasizedSelectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1507,6 +1518,7 @@
                         <outlet property="FixChromiumBrowser" destination="efe-07-OlS" id="PMH-MH-7Ea"/>
                         <outlet property="FixRecommendBrowser" destination="BKq-hz-RRL" id="V6H-kl-20B"/>
                         <outlet property="FreeMarkButton" destination="f8B-EV-EE1" id="u6V-zD-Xqg"/>
+                        <outlet property="LockInputSourceABC" destination="AA0200000000000000001101" id="AA0200000000000000001104"/>
                         <outlet property="OtherLanguage" destination="uew-J8-1eo" id="LFp-j1-L5Z"/>
                         <outlet property="PerformLayoutCompat" destination="FLh-VP-qtU" id="PZj-VV-FRE"/>
                         <outlet property="QuickEndConsonant" destination="2k8-6T-Cyn" id="Yj2-m5-Nbj"/>
