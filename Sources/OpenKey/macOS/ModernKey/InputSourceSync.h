@@ -9,13 +9,14 @@
 //
 //  Khi macOS đổi sang input source KHÔNG phải tiếng Anh, có hai chế độ:
 //
-//   A. "Khoá bộ gõ ở ABC" TẮT (mặc định) -> nhường quyền cho bộ gõ hệ thống:
+//   A. "Khoá ở ABC khi gõ tiếng Việt" TẮT (mặc định) -> nhường quyền:
 //      tắt tiếng Việt của KietKey. Bật/tắt bằng:
 //        defaults write com.tuyenmai.openkey SyncWithSystemInputSource -int 0
 //
-//   B. "Khoá bộ gõ ở ABC" BẬT -> giữ tiếng Việt, kéo input source về ABC ngay.
+//   B. "Khoá ở ABC khi gõ tiếng Việt" BẬT -> giữ tiếng Việt, kéo về ABC ngay.
 //      Muốn dùng bộ gõ của macOS thì phải tắt tiếng Việt của KietKey trước.
-//      Bật/tắt bằng checkbox trong tab "Gõ tiếng Việt", hoặc:
+//      Chỉ có tác dụng khi tiếng Việt đang BẬT; tiếng Việt tắt thì không
+//      chặn gì cả. Bật/tắt bằng checkbox trong tab "Gõ tiếng Việt", hoặc:
 //        defaults write com.tuyenmai.openkey vLockInputSourceABC -int 1
 //
 //  Chế độ B có ưu tiên cao hơn A khi cả hai cùng bật.

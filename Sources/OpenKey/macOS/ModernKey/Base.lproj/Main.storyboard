@@ -1187,9 +1187,9 @@
                                             </connections>
                                         </button>
                                         <button toolTip="KietKey sẽ tự động tắt gõ tiếng Việt khi bộ gõ hệ thống không phải là tiếng Anh." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ej5-aI-sDd">
-                                            <rect key="frame" x="18" y="23" width="317" height="18"/>
+                                            <rect key="frame" x="18" y="23" width="258" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Tắt tiếng Việt khi bộ gõ hệ thống khác tiếng Anh" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uew-J8-1eo">
+                                            <buttonCell key="cell" type="check" title="Tắt tiếng Việt khi bộ gõ khác tiếng Anh" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uew-J8-1eo">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <connections>
@@ -1197,10 +1197,10 @@
                                                 </connections>
                                             </buttonCell>
                                         </button>
-                                        <button toolTip="Khi đang bật tiếng Việt, không cho chuyển bộ gõ hệ thống sang bộ gõ khác. Muốn dùng bộ gõ của macOS thì tắt tiếng Việt của KietKey trước." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AA0200000000000000001101">
-                                            <rect key="frame" x="345" y="23" width="170" height="18"/>
+                                        <button toolTip="CHỈ áp dụng khi đang bật tiếng Việt: giữ bộ gõ hệ thống ở ABC, đổi sang bộ gõ khác sẽ bị kéo về ngay. Khi tắt tiếng Việt thì đổi bộ gõ thoải mái, không bị chặn." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AA0200000000000000001101">
+                                            <rect key="frame" x="286" y="23" width="200" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Khoá bộ gõ ở ABC" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AA0200000000000000001102">
+                                            <buttonCell key="cell" type="check" title="Khoá ở ABC khi gõ tiếng Việt" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="AA0200000000000000001102">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
