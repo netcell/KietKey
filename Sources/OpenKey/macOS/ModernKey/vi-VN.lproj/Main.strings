@@ -2,8 +2,8 @@
 /* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "1UK-8n-QPP"; */
 "1UK-8n-QPP.title" = "Customize Toolbar…";
 
-/* Class = "NSMenuItem"; title = "OpenKey"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "OpenKey";
+/* Class = "NSMenuItem"; title = "KietKey"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "KietKey";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "Find";
@@ -443,8 +443,8 @@
 /* Class = "NSMenuItem"; title = "VNI"; ObjectID = "tv3-iD-nS9"; */
 "tv3-iD-nS9.title" = "VNI";
 
-/* Class = "NSMenu"; title = "OpenKey"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "OpenKey";
+/* Class = "NSMenu"; title = "KietKey"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "KietKey";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Cut";

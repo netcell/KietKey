@@ -16,11 +16,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="OpenKey" id="1Xt-HY-uBw">
+                            <menuItem title="KietKey" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="OpenKey" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="KietKey" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About OpenKey" id="5kV-Vb-QxS">
+                                        <menuItem title="About KietKey" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -34,7 +34,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide OpenKey" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide KietKey" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -52,7 +52,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit OpenKey" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit KietKey" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -665,7 +665,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="OpenKey Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="KietKey Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -688,7 +688,7 @@
                 <windowController storyboardIdentifier="AboutWindow" showSeguePresentationStyle="single" id="2XQ-D7-GhY" sceneMemberID="viewController">
                     <window key="window" title="Giới thiệu" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8ft-jm-pO3">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-                        <rect key="contentRect" x="1346" y="584" width="480" height="270"/>
+                        <rect key="contentRect" x="1346" y="584" width="480" height="200"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <connections>
                             <outlet property="delegate" destination="2XQ-D7-GhY" id="SAi-r6-fvl"/>
@@ -707,11 +707,11 @@
             <objects>
                 <viewController id="SDG-I4-o9t" customClass="AboutViewController" sceneMemberID="viewController">
                     <view key="view" id="ATQ-uD-hpO">
-                        <rect key="frame" x="0.0" y="0.0" width="580" height="308"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cOa-h2-TPT">
-                                <rect key="frame" x="160" y="210" width="263" height="21"/>
+                                <rect key="frame" x="150" y="108" width="300" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Bộ gõ Tiếng Việt dành cho macOS" id="yWO-xd-t3K">
                                     <font key="font" metaFont="systemThin" size="17"/>
@@ -719,97 +719,22 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m7F-5x-ESn">
-                                <rect key="frame" x="160" y="143" width="68" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Trang chủ:" id="eZE-Iu-ykp">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olz-Hc-wyN">
-                                <rect key="frame" x="160" y="235" width="277" height="48"/>
+                                <rect key="frame" x="150" y="132" width="290" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="OpenKey" id="nbR-li-HBd">
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="KietKey" id="nbR-li-HBd">
                                     <font key="font" metaFont="systemThin" size="40"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xzQ-X1-r15">
-                                <rect key="frame" x="0.0" y="83" width="160" height="160"/>
+                                <rect key="frame" x="20" y="70" width="110" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="qxo-YX-7X4"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jet-Gl-mzT">
-                                <rect key="frame" x="263" y="143" width="229" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <gestureRecognizers>
-                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="bsm-Pg-VQL">
-                                        <connections>
-                                            <action selector="onHomePage:" target="SDG-I4-o9t" id="QVN-Cu-JDu"/>
-                                        </connections>
-                                    </clickGestureRecognizer>
-                                </gestureRecognizers>
-                                <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="https://github.com/tuyenvm/OpenKey" id="VCX-6k-cHt">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lsv-mg-ayU">
-                                <rect key="frame" x="160" y="118" width="93" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Phiên bản mới:" id="E5F-GD-BjU">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C49-2T-6ca">
-                                <rect key="frame" x="263" y="118" width="283" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <gestureRecognizers>
-                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="VUh-Rw-bCl">
-                                        <connections>
-                                            <action selector="onLatestReleaseVersion:" target="SDG-I4-o9t" id="ckj-Xo-dX3"/>
-                                        </connections>
-                                    </clickGestureRecognizer>
-                                </gestureRecognizers>
-                                <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="https://github.com/tuyenvm/OpenKey/releases" id="zCu-0X-Rqo">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uOE-QV-t9P">
-                                <rect key="frame" x="161" y="93" width="60" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Fanpage:" id="TtI-Mk-9cF">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoG-g6-y7i">
-                                <rect key="frame" x="263" y="93" width="241" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <gestureRecognizers>
-                                    <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="GiO-w4-Qrl">
-                                        <connections>
-                                            <action selector="onFanPage:" target="SDG-I4-o9t" id="X0C-gc-JpK"/>
-                                        </connections>
-                                    </clickGestureRecognizer>
-                                </gestureRecognizers>
-                                <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="https://www.facebook.com/OpenKeyVN" id="a54-tw-Amh">
-                                    <font key="font" metaFont="systemThin" size="13"/>
-                                    <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeG-WX-JbZ">
-                                <rect key="frame" x="160" y="185" width="422" height="18"/>
+                                <rect key="frame" x="150" y="84" width="310" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Phiên bản: 1.0, cập nhật ngày 1/1/2019" id="FiL-a8-YwW">
                                     <font key="font" metaFont="systemThin" size="13"/>
@@ -818,41 +743,17 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="USx-Nt-l0Y">
-                                <rect key="frame" x="225" y="7" width="123" height="16"/>
+                                <rect key="frame" x="150" y="16" width="180" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Mai Vũ Tuyên © 2019" id="630-DT-XcR">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Pineapple © 2026" id="630-DT-XcR">
                                     <font key="font" metaFont="systemThin" size="12"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tvC-7v-OW8">
-                                <rect key="frame" x="156" y="30" width="141" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Kiểm tra bản mới..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Nhb-MP-s0Y">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onCheckNewVersion:" target="SDG-I4-o9t" id="tfs-Fv-jfi"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qgw-K2-HcQ">
-                                <rect key="frame" x="160" y="67" width="236" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Kiểm tra bản mới khi khởi động" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Pv-o7-ffq">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="systemLight" size="13"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onCheckUpdateOnStartup:" target="SDG-I4-o9t" id="8RZ-cL-RzN"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="CheckNewVersionButton" destination="tvC-7v-OW8" id="8Ou-a0-9mM"/>
-                        <outlet property="CheckUpdateOnStatus" destination="Qgw-K2-HcQ" id="tx8-Ab-Sbx"/>
                         <outlet property="VersionInfo" destination="AeG-WX-JbZ" id="sEO-BZ-DBo"/>
                     </connections>
                 </viewController>
@@ -864,7 +765,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="OpenKey" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="OpenKey 1.0 - Bộ gõ Tiếng Việt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="KietKey 1.0 - Bộ gõ Tiếng Việt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -1252,10 +1153,10 @@
                                                 <action selector="onRememberTableCode:" target="XfG-lQ-9wD" id="WAd-dy-sZy"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Bằng cách bấm phím Command, OpenKey sẽ tạm ngừng hoạt động cho tới khi bạn gõ 1 từ mới." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-ed-0Ov">
+                                        <button toolTip="Bằng cách bấm phím Command, KietKey sẽ tạm ngừng hoạt động cho tới khi bạn gõ 1 từ mới." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-ed-0Ov">
                                             <rect key="frame" x="278" y="55" width="215" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Tạm tắt OpenKey bằng phím ⌘" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hx0-Hk-EOx">
+                                            <buttonCell key="cell" type="check" title="Tạm tắt KietKey bằng phím ⌘" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hx0-Hk-EOx">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -1274,7 +1175,7 @@
                                                 <action selector="onUpperCaseFirstChar:" target="XfG-lQ-9wD" id="QFl-JY-GEA"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="OpenKey sẽ tự động tắt gõ tiếng Việt khi bộ gõ hệ thống không phải là tiếng Anh." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ej5-aI-sDd">
+                                        <button toolTip="KietKey sẽ tự động tắt gõ tiếng Việt khi bộ gõ hệ thống không phải là tiếng Anh." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ej5-aI-sDd">
                                             <rect key="frame" x="18" y="23" width="317" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Tắt tiếng Việt khi bộ gõ hệ thống khác tiếng Anh" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uew-J8-1eo">
@@ -1440,17 +1341,6 @@
                                     <rect key="frame" x="1" y="1" width="518" height="208"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button toolTip="Tự động kiểm tra phiên bản mới nhất mỗi khi khởi chạy OpenKey" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oZr-h6-YZJ">
-                                            <rect key="frame" x="283" y="94" width="232" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Kiểm tra bản mới lúc khởi động" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Yxn-RW-l3x">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="onCheckNewVersionOnStartup:" target="XfG-lQ-9wD" id="o68-VP-UjG"/>
-                                            </connections>
-                                        </button>
                                         <button toolTip="Mặc định nên tắt, với các ứng dụng gặp lỗi thì thử bật tính năng này lên" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8z-Sp-sdZ">
                                             <rect key="frame" x="283" y="129" width="200" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1462,7 +1352,7 @@
                                                 <action selector="onSendKeyStepByStep:" target="XfG-lQ-9wD" id="peZ-iw-y3q"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Hiện biểu tượng OpenKey trên thanh Dock của máy bạn" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-HO-9o0">
+                                        <button toolTip="Hiện biểu tượng KietKey trên thanh Dock của máy bạn" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-HO-9o0">
                                             <rect key="frame" x="18" y="164" width="219" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Hiện biểu tượng trên thanh Dock" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="mXT-yM-DNm">
@@ -1530,17 +1420,6 @@
                                                 <action selector="onPerformLayoutCompat:" target="XfG-lQ-9wD" id="ezk-tK-MWB"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Bấm vào đây để kiểm tra phiên bản mới của OpenKey" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZuJ-Ke-7Qg">
-                                            <rect key="frame" x="279" y="47" width="154" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Kiểm tra bản mới..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GQD-eQ-FpN">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="onCheckNewVersionButton:" target="XfG-lQ-9wD" id="l64-Ug-nXM"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="unemphasizedSelectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1556,69 +1435,19 @@
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rpD-yE-eVi">
                                             <rect key="frame" x="78" y="169" width="394" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="OpenKey - Bộ gõ Tiếng Việt nguồn mở đa nền tảng" id="ITy-e9-YzB">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="KietKey - Bộ gõ Tiếng Việt cho macOS" id="ITy-e9-YzB">
                                                 <font key="font" size="13" name="HelveticaNeue"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w7u-GE-f2u">
-                                            <rect key="frame" x="0.0" y="125" width="65" height="65"/>
+                                            <rect key="frame" x="0" y="125" width="65" height="65"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="7jC-zc-3Na"/>
                                         </imageView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0tV-iH-sRD">
-                                            <rect key="frame" x="78" y="151" width="64" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Trang chủ" id="7b8-gW-wsV">
-                                                <font key="font" metaFont="systemThin" size="13"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d82-rI-Bnp">
-                                            <rect key="frame" x="158" y="151" width="161" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <gestureRecognizers>
-                                                <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="BnW-Cf-Dva">
-                                                    <connections>
-                                                        <action selector="onHomePageLink:" target="XfG-lQ-9wD" id="J1s-3D-yB3"/>
-                                                    </connections>
-                                                </clickGestureRecognizer>
-                                            </gestureRecognizers>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="https://open-key.org" id="nHn-YP-grx">
-                                                <font key="font" metaFont="systemThin" size="13"/>
-                                                <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efo-0V-TJT">
-                                            <rect key="frame" x="78" y="131" width="60" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Facebook" id="cSu-Ye-zUv">
-                                                <font key="font" metaFont="systemThin" size="13"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAj-la-DBu">
-                                            <rect key="frame" x="158" y="131" width="262" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <gestureRecognizers>
-                                                <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="RgF-ls-7wI">
-                                                    <connections>
-                                                        <action selector="onFanpageLink:" target="XfG-lQ-9wD" id="7Sa-ug-pQJ"/>
-                                                    </connections>
-                                                </clickGestureRecognizer>
-                                            </gestureRecognizers>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="https://www.facebook.com/OpenKeyVN" id="Eab-Ws-sUb">
-                                                <font key="font" metaFont="systemThin" size="13"/>
-                                                <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXh-ai-gk3">
-                                            <rect key="frame" x="78" y="95" width="418" height="18"/>
+                                            <rect key="frame" x="78" y="147" width="418" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Phiên bản: 1.0, cập nhật ngày 1/1/2019" id="Ntd-DR-Tpa">
                                                 <font key="font" metaFont="systemThin" size="13"/>
@@ -1627,42 +1456,26 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qlz-Sz-VDa">
-                                            <rect key="frame" x="78" y="33" width="422" height="55"/>
+                                            <rect key="frame" x="78" y="78" width="422" height="55"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" alignment="left" id="B3Z-2e-1t0">
                                                 <font key="font" metaFont="systemThin" size="13"/>
-                                                <string key="title">OpenKey cho macOS là phần mềm mã nguồn mở và được phát hành miễn phí. Bạn hoàn toàn có thể đóng góp ý kiến, yêu cầu tính năng mới qua email của tác giả hoặc trên github.</string>
+                                                <string key="title">KietKey là bản build cá nhân, phát triển từ mã nguồn mở OpenKey (giấy phép GPL). Bản này không kết nối Internet và không tự động cập nhật.</string>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umA-Yh-Pbd">
-                                            <rect key="frame" x="78" y="9" width="145" height="17"/>
+                                            <rect key="frame" x="78" y="52" width="200" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Mai Vũ Tuyên © 2019 - " id="CwO-3m-MrD">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Pineapple © 2026" id="CwO-3m-MrD">
                                                 <font key="font" metaFont="systemThin" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2hr-xh-URk">
-                                            <rect key="frame" x="219" y="9" width="174" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <gestureRecognizers>
-                                                <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="pAB-RE-9oV">
-                                                    <connections>
-                                                        <action selector="onEmailLink:" target="XfG-lQ-9wD" id="Drb-Y6-gJv"/>
-                                                    </connections>
-                                                </clickGestureRecognizer>
-                                            </gestureRecognizers>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" continuous="YES" sendsActionOnEndEditing="YES" title="maivutuyen.91@gmail.com" id="gZX-OZ-lQW">
-                                                <font key="font" metaFont="systemThin" size="13"/>
-                                                <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8B-er-EO9">
-                                            <rect key="frame" x="403" y="2" width="112" height="32"/>
+                                            <rect key="frame" x="403" y="10" width="112" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Mã nguồn..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fQH-k0-0aa">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1683,8 +1496,6 @@
                         <outlet property="AllowZWJF" destination="uOQ-qL-V9O" id="Jqs-5h-yVt"/>
                         <outlet property="AutoCapsMacro" destination="74U-4J-gv7" id="VfS-OM-Xg9"/>
                         <outlet property="AutoRememberSwitchKey" destination="YGb-a8-1Lb" id="uux-4i-1Hw"/>
-                        <outlet property="CheckNewVersionButton" destination="ZuJ-Ke-7Qg" id="YR5-LD-gFA"/>
-                        <outlet property="CheckNewVersionOnStartup" destination="oZr-h6-YZJ" id="kPW-tt-B1L"/>
                         <outlet property="CheckSpellingButton" destination="6Ko-dG-wVl" id="GZc-qh-LkA"/>
                         <outlet property="CustomBeepSound" destination="bJy-t3-bzy" id="AyJ-En-XLs"/>
                         <outlet property="CustomSwitchCommand" destination="qvz-oU-TII" id="uv1-93-sB7"/>

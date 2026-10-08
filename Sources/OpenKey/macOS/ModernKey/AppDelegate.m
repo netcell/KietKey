@@ -94,7 +94,7 @@ extern bool convertToolDontAlertWhenCompleted;
 
 -(void)askPermission {
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText: [NSString stringWithFormat:@"OpenKey cần bạn cấp quyền để có thể hoạt động!"]];
+    [alert setMessageText: [NSString stringWithFormat:@"KietKey cần bạn cấp quyền để có thể hoạt động!"]];
     [alert setInformativeText:@"Vui lòng chạy lại ứng dụng sau khi cấp quyền."];
 
     [alert addButtonWithTitle:@"Không"];
@@ -182,11 +182,6 @@ extern bool convertToolDontAlertWhenCompleted;
         [self loadDefaultConfig];
     }
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"NonFirstTime"];
-    
-    //check update if enable
-    NSInteger dontCheckUpdate = [[NSUserDefaults standardUserDefaults] integerForKey:@"DontCheckUpdate"];
-    if (!dontCheckUpdate)
-        [OpenKeyManager checkNewVersion:nil callbackFunc:nil];
     
     //correct run on startup
     NSInteger val = [[NSUserDefaults standardUserDefaults] integerForKey:@"RunOnStartup"];

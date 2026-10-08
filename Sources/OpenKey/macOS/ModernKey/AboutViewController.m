@@ -1,9 +1,10 @@
 //
 //  AboutViewController.m
-//  OpenKey
+//  KietKey
 //
 //  Created by Tuyen on 2/15/19.
 //  Copyright © 2019 Tuyen Mai. All rights reserved.
+//  Bản build cá nhân KietKey © 2026 Pineapple.
 //
 
 #import "AboutViewController.h"
@@ -24,36 +25,6 @@
                                     [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"],
                                     [OpenKeyManager getBuildDate]] ;
     
-    NSInteger dontCheckUpdate = [[NSUserDefaults standardUserDefaults] integerForKey:@"DontCheckUpdate"];
-    self.CheckUpdateOnStatus.state = dontCheckUpdate ? NSControlStateValueOff :NSControlStateValueOn;
-}
-
-- (IBAction)onHomePage:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"https://github.com/tuyenvm/OpenKey"]];
-}
-
-- (IBAction)onFanPage:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"https://www.facebook.com/OpenKeyVN"]];
-}
-
-- (IBAction)onLatestReleaseVersion:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"https://github.com/tuyenvm/OpenKey/releases"]];
-}
-
-- (IBAction)onCheckUpdateOnStartup:(NSButton *)sender {
-    NSInteger val = sender.state == NSControlStateValueOn ? 0 : 1;
-    [[NSUserDefaults standardUserDefaults] setInteger:val forKey:@"DontCheckUpdate"];
-}
-
-- (IBAction)onCheckNewVersion:(id)sender {
-    
-    self.CheckNewVersionButton.title = @"Đang kiểm tra...";
-    self.CheckNewVersionButton.enabled = false;
-    
-    [OpenKeyManager checkNewVersion: self.view.window callbackFunc:^{
-        self.CheckNewVersionButton.enabled = true;
-        self.CheckNewVersionButton.title = @"Kiểm tra bản mới...";
-    }];
 }
 
 @end

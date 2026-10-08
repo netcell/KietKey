@@ -1,6 +1,6 @@
 //
 //  OpenKeyManager.m
-//  OpenKey
+//  KietKey
 //
 //  Created by Tuyen on 1/27/19.
 //  Copyright © 2019 Tuyen Mai. All rights reserved.
@@ -144,61 +144,4 @@ static CFRunLoopSourceRef runLoopSource;
     }
 }
 
-#pragma mark -AutoUpdate feature
-
-+(void)checkNewVersion:(NSWindow*)parent callbackFunc:(CheckNewVersionCallback) callback {
-    // NETWORK DISABLED (personal build): the original implementation fetched
-    // version.json over HTTPS from raw.githubusercontent.com. This build makes
-    // no network connections at all. Update manually via `git pull` + rebuild.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (callback != nil) {
-            callback();
-            [self showMessage:parent
-                     message:@"Tính năng kiểm tra bản mới đã bị tắt"
-                      subMsg:@"Bản build cá nhân này không kết nối Internet. Hãy cập nhật bằng cách build lại từ mã nguồn."];
-        }
-    });
-}
-
-+(void)showUpdateMessage:(NSWindow*)parent needUpdating:(BOOL)needUpdating newVersion:(NSString*)versionString {
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:(needUpdating ? [NSString stringWithFormat:@"OpenKey Có phiên bản mới (%@), bạn có muốn cập nhật không?", versionString] : @"Bạn đang dùng phiên bản mới nhất!")];
-    [alert setInformativeText:(needUpdating ? @"Bấm 'Có' để cập nhật OpenKey." : @"")];
-    
-    if (!needUpdating) {
-        [alert addButtonWithTitle:@"OK"];
-    } else {
-        [alert addButtonWithTitle:@"Có"];
-        [alert addButtonWithTitle:@"Không"];
-    }
-    if (parent == nil) {
-        [alert.window makeKeyAndOrderFront:nil];
-        [alert.window setLevel:NSStatusWindowLevel];
-        NSModalResponse res = [alert runModal];
-        if (res == 1000 && needUpdating) {
-            [self launchUpdateHelper];
-        }
-    } else {
-        [alert beginSheetModalForWindow:parent completionHandler:^(NSModalResponse returnCode) {
-            if (returnCode == 1000 && needUpdating) {
-                [self launchUpdateHelper];
-            }
-        }];
-    }
-}
-
-+(void)launchUpdateHelper {
-    // NETWORK DISABLED (personal build): auto-updater removed.
-}
-
-+(NSString*)getApplicationSupportFolder {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    NSString *applicationSupportDirectory = [paths firstObject];
-    return [NSString stringWithFormat:@"%@/OpenKey", applicationSupportDirectory];
-}
-
-+(NSString*)getUpdateBundlePath {
-    NSString *currentpath = [[NSBundle mainBundle] bundlePath];
-    return [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/OpenKeyUpdate.app", currentpath];
-}
 @end
