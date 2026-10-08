@@ -14,6 +14,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 -(void)onImputMethodChanged:(BOOL)willNotify;
+-(void)setVietnameseEnabled:(BOOL)enabled;
 -(void)onInputMethodSelected;
 
 -(void)askPermission;

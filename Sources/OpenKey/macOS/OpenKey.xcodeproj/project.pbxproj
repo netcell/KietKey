@@ -43,6 +43,7 @@
 		23E2E49F2314FD3A006CCC3E /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E2E49A2314FD3A006CCC3E /* Engine.cpp */; };
 		23E2E4A02314FD3A006CCC3E /* Vietnamese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23E2E49B2314FD3A006CCC3E /* Vietnamese.cpp */; };
 		23F512852336386200397988 /* MJAccessibilityUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F512832336386200397988 /* MJAccessibilityUtils.m */; };
+		AA0100000000000000000102 /* InputSourceSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0100000000000000000101 /* InputSourceSync.m */; };
 		A534F32629D8B78100296F25 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23874B0F220160A500000BC8 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,8 @@
 		23E2E49B2314FD3A006CCC3E /* Vietnamese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vietnamese.cpp; sourceTree = "<group>"; };
 		23E2E49C2314FD3A006CCC3E /* SmartSwitchKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartSwitchKey.h; sourceTree = "<group>"; };
 		23F512832336386200397988 /* MJAccessibilityUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJAccessibilityUtils.m; sourceTree = "<group>"; };
+		AA0100000000000000000101 /* InputSourceSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputSourceSync.m; sourceTree = "<group>"; };
+		AA0100000000000000000103 /* InputSourceSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputSourceSync.h; sourceTree = "<group>"; };
 		23F512842336386200397988 /* MJAccessibilityUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJAccessibilityUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +205,8 @@
 				232DB1DF21FAED280049A0B5 /* Resources */,
 				23F512842336386200397988 /* MJAccessibilityUtils.h */,
 				23F512832336386200397988 /* MJAccessibilityUtils.m */,
+				AA0100000000000000000103 /* InputSourceSync.h */,
+				AA0100000000000000000101 /* InputSourceSync.m */,
 				232EDA5721F1B33E0085D362 /* AppDelegate.h */,
 				232EDA5821F1B33E0085D362 /* AppDelegate.m */,
 				232EDA5A21F1B33E0085D362 /* ViewController.h */,
@@ -408,6 +413,7 @@
 				232EDA5C21F1B33E0085D362 /* ViewController.m in Sources */,
 				23E2E49E2314FD3A006CCC3E /* SmartSwitchKey.cpp in Sources */,
 				23F512852336386200397988 /* MJAccessibilityUtils.m in Sources */,
+				AA0100000000000000000102 /* InputSourceSync.m in Sources */,
 				2389467D21FDDB920030A13B /* OpenKeyManager.m in Sources */,
 				23E2E4A02314FD3A006CCC3E /* Vietnamese.cpp in Sources */,
 				2374A1302216720E005B0375 /* AboutViewController.m in Sources */,

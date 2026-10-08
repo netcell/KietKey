@@ -13,6 +13,7 @@
 #include <libproc.h>
 #include <sys/proc_info.h>
 #import "AppDelegate.h"
+#import "InputSourceSync.h"
 #import "ViewController.h"
 #import "OpenKeyManager.h"
 #import "MJAccessibilityUtils.h"
@@ -159,7 +160,10 @@ extern bool convertToolDontAlertWhenCompleted;
         NSBeep();
 
     [self createStatusBarMenu];
-    
+
+    //theo doi input source cua he thong de tranh xung dot voi bo go cua macOS
+    InputSourceSyncStart();
+
     //init
     dispatch_async(dispatch_get_main_queue(), ^{
         if (![OpenKeyManager initEventTap]) {
@@ -435,9 +439,30 @@ extern bool convertToolDontAlertWhenCompleted;
 
     [self fillData];
     [viewController fillData];
-    
+
+    //OpenKey bat tieng Viet -> nhuong input source cho ABC de tranh xung dot
+    if (vLanguage == 1)
+        InputSourceSyncSelectEnglish();
+
     if (willNotify)
         OnInputMethodChanged();
+}
+
+//Dat trang thai tieng Viet theo gia tri tuyet doi (khac onImputMethodChanged: la dao trang thai).
+-(void)setVietnameseEnabled:(BOOL)enabled {
+    NSInteger target = enabled ? 1 : 0;
+    if (vLanguage == (int)target)
+        return;
+
+    [[NSUserDefaults standardUserDefaults] setInteger:target forKey:@"InputMethod"];
+    [self fillData];
+    [viewController fillData];
+
+    if (enabled)
+        InputSourceSyncSelectEnglish();
+
+    OnInputMethodChanged();
+    RequestNewSession();
 }
 
 #pragma mark -StatusBar menu action
