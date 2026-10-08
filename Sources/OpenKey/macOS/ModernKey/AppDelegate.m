@@ -16,6 +16,7 @@
 #import "InputSourceSync.h"
 #import "SwitchHUD.h"
 #import "BrowserURL.h"
+#import "KietKey-Swift.h"
 #import "ViewController.h"
 #import "OpenKeyManager.h"
 #import "MJAccessibilityUtils.h"
@@ -194,7 +195,7 @@ extern bool convertToolDontAlertWhenCompleted;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-    [self onControlPanelSelected];
+    [self onSettingsWindowSelected];
     return YES;
 }
 
@@ -234,7 +235,8 @@ extern bool convertToolDontAlertWhenCompleted;
     
     [theMenu addItem:[NSMenuItem separatorItem]];
     
-    [theMenu addItemWithTitle:@"Bảng điều khiển..." action:@selector(onControlPanelSelected) keyEquivalent:@""];
+    [theMenu addItemWithTitle:@"Cài đặt..." action:@selector(onSettingsWindowSelected) keyEquivalent:@","];
+    [theMenu addItemWithTitle:@"Bảng điều khiển (cũ)..." action:@selector(onControlPanelSelected) keyEquivalent:@""];
     [theMenu addItemWithTitle:@"Gõ tắt..." action:@selector(onMacroSelected) keyEquivalent:@""];
     [theMenu addItemWithTitle:@"Giới thiệu" action:@selector(onAboutSelected) keyEquivalent:@""];
     [theMenu addItem:[NSMenuItem separatorItem]];
@@ -519,6 +521,10 @@ extern bool convertToolDontAlertWhenCompleted;
     } else {
         [OpenKeyManager showMessage: nil message:@"Không có dữ liệu trong clipboard!" subMsg:@"Hãy sao chép một đoạn text để chuyển đổi!"];
     }
+}
+
+-(void) onSettingsWindowSelected {
+    [KKSettingsWindow show];
 }
 
 -(void) onControlPanelSelected {
