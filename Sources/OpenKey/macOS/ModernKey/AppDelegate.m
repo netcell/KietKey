@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "InputSourceSync.h"
 #import "SwitchHUD.h"
+#import "BrowserURL.h"
 #import "ViewController.h"
 #import "OpenKeyManager.h"
 #import "MJAccessibilityUtils.h"
@@ -164,6 +165,9 @@ extern bool convertToolDontAlertWhenCompleted;
 
     //theo doi input source cua he thong de tranh xung dot voi bo go cua macOS
     InputSourceSyncStart();
+
+    //theo dõi tên miền đang xem để áp quy tắc theo website
+    BrowserURLStartWatching();
 
     //init
     dispatch_async(dispatch_get_main_queue(), ^{

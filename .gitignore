@@ -10,3 +10,4 @@
 /Sources/OpenKey/win32/OpenKey/OpenKeyUpdate/x64/Release
 .build/
 openkey-signing-cert.p12
+distribution.cer
