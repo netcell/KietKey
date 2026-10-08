@@ -14,6 +14,7 @@
 #include <sys/proc_info.h>
 #import "AppDelegate.h"
 #import "InputSourceSync.h"
+#import "SwitchHUD.h"
 #import "ViewController.h"
 #import "OpenKeyManager.h"
 #import "MJAccessibilityUtils.h"
@@ -440,6 +441,8 @@ extern bool convertToolDontAlertWhenCompleted;
     if (vLanguage == 1)
         InputSourceSyncSelectEnglish();
 
+    SwitchHUDShow(vLanguage == 1);
+
     if (willNotify)
         OnInputMethodChanged();
 }
@@ -456,6 +459,8 @@ extern bool convertToolDontAlertWhenCompleted;
 
     if (enabled)
         InputSourceSyncSelectEnglish();
+
+    SwitchHUDShow(enabled);
 
     OnInputMethodChanged();
     RequestNewSession();
