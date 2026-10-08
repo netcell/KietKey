@@ -12,6 +12,10 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
+//khai báo trước: hàm định nghĩa ở dưới nhưng được gọi lúc khởi tạo
+extern "C" void reloadSwitchKeyList(void);
+extern int vHijackInputSourceKey;
+
 #define FRONT_APP [[NSWorkspace sharedWorkspace] frontmostApplication].bundleIdentifier
 #define OTHER_CONTROL_KEY (_flag & kCGEventFlagMaskCommand) || (_flag & kCGEventFlagMaskControl) || \
                             (_flag & kCGEventFlagMaskAlternate) || (_flag & kCGEventFlagMaskSecondaryFn) || \
@@ -113,6 +117,9 @@ extern "C" {
         LOAD_DATA(vFixChromiumBrowser, vFixChromiumBrowser);
         
         LOAD_DATA(vPerformLayoutCompat, vPerformLayoutCompat);
+        LOAD_DATA(vHijackInputSourceKey, vHijackInputSourceKey);
+
+        reloadSwitchKeyList();
         
         myEventSource = CGEventSourceCreate(kCGEventSourceStatePrivate);
         pData = (vKeyHookState*)vKeyInit();
@@ -225,6 +232,10 @@ extern "C" {
         }
     }
     
+    void OnSwitchKeyListChanged() {
+        reloadSwitchKeyList();
+    }
+
     void OnTableCodeChange() {
         onTableCodeChange();
         if (vRememberCode) {
@@ -512,6 +523,26 @@ extern "C" {
         }
     }
             
+    /** Danh sách tổ hợp phím chuyển.
+     * vSwitchKeyStatus vẫn là tổ hợp thứ nhất để Bảng điều khiển cũ và dữ liệu
+     * cấu hình cũ dùng tiếp được; các tổ hợp thêm nằm trong "vSwitchKeyList".
+     */
+    static std::vector<int> _switchKeyList;
+
+    void reloadSwitchKeyList() {
+        _switchKeyList.clear();
+        _switchKeyList.push_back(vSwitchKeyStatus);
+        NSArray* extra = [[NSUserDefaults standardUserDefaults] arrayForKey:@"vSwitchKeyList"];
+        for (id item in extra) {
+            if (![item isKindOfClass:[NSNumber class]])
+                continue;
+            int value = [item intValue];
+            if (value == vSwitchKeyStatus)
+                continue; //đã có ở vị trí đầu
+            _switchKeyList.push_back(value);
+        }
+    }
+
     bool checkHotKey(int hotKeyData, bool checkKeyCode=true) {
         if ((hotKeyData & (~0x8000)) == EMPTY_HOTKEY)
             return false;
@@ -532,6 +563,62 @@ extern "C" {
         return true;
     }
     
+    /// Có tổ hợp nào trong danh sách khớp với trạng thái phím hiện tại không.
+    bool anySwitchKeyMatches() {
+        for (size_t i = 0; i < _switchKeyList.size(); i++) {
+            int hotKey = _switchKeyList[i];
+            if (checkHotKey(hotKey, GET_SWITCH_KEY(hotKey) != 0xFE))
+                return true;
+        }
+        return false;
+    }
+
+    /// Có tổ hợp nào dùng đúng mã phím này không (để biết có cần xét tiếp hay không).
+    bool anySwitchKeyUsesKeyCode(CGKeyCode code) {
+        for (size_t i = 0; i < _switchKeyList.size(); i++) {
+            if (GET_SWITCH_KEY(_switchKeyList[i]) == code)
+                return true;
+        }
+        return false;
+    }
+
+    /** Tự kiểm tra logic so khớp nhiều tổ hợp mà không cần bấm phím thật.
+     * Dựng cờ phím đúng cho từng tổ hợp rồi hỏi anySwitchKeyMatches().
+     * Gọi từ Objective-C khi bật khoá vSelfTestHotkeys.
+     */
+    NSString* RunSwitchKeyDiagnostics(void) {
+        reloadSwitchKeyList();
+        NSMutableString* out = [NSMutableString string];
+        CGEventFlags savedFlag = _lastFlag;
+        CGKeyCode savedCode = _keycode;
+
+        for (size_t i = 0; i < _switchKeyList.size(); i++) {
+            int hotKey = _switchKeyList[i];
+            CGEventFlags flags = 0;
+            if (HAS_CONTROL(hotKey)) flags |= kCGEventFlagMaskControl;
+            if (HAS_OPTION(hotKey))  flags |= kCGEventFlagMaskAlternate;
+            if (HAS_COMMAND(hotKey)) flags |= kCGEventFlagMaskCommand;
+            if (HAS_SHIFT(hotKey))   flags |= kCGEventFlagMaskShift;
+            if (HAS_FN(hotKey))      flags |= kCGEventFlagMaskSecondaryFn;
+
+            _lastFlag = flags;
+            _keycode = (CGKeyCode)GET_SWITCH_KEY(hotKey);
+            BOOL matched = anySwitchKeyMatches();
+            [out appendFormat:@"#%d=0x%X %@ | ", (int)i, hotKey,
+                 matched ? @"khop" : @"KHONG KHOP(loi)"];
+        }
+
+        //không giữ phím nào thì không được khớp
+        _lastFlag = 0;
+        _keycode = 0xFF;
+        [out appendFormat:@"khong giu phim: %@",
+             anySwitchKeyMatches() ? @"KHOP(loi)" : @"khong khop(dung)"];
+
+        _lastFlag = savedFlag;
+        _keycode = savedCode;
+        return out;
+    }
+
     void switchLanguage() {
         if (vLanguage == 0)
             vLanguage = 1;
@@ -614,12 +701,29 @@ extern "C" {
            _keycode = ConvertEventToKeyboadLayoutCompatKeyCode(event, _keycode);
         }
         
+        /* Chiếm phím chuyển bộ gõ của macOS (⌃Space / ⌃⌥Space).
+         * Nuốt luôn sự kiện nên hệ thống không đổi bộ gõ nữa; thay vào đó
+         * bật/tắt tiếng Việt của KietKey.
+         * Không xử lý được phím 🌐: macOS bắt nó ở tầng thấp hơn event tap,
+         * phải đặt "Press 🌐 key to" thành "Do Nothing" trong System Settings.
+         */
+        if (vHijackInputSourceKey && type == kCGEventKeyDown && _keycode == 49) { //49 = Space
+            bool hasControl = (_flag & kCGEventFlagMaskControl) != 0;
+            bool hasCommand = (_flag & kCGEventFlagMaskCommand) != 0;
+            if (hasControl && !hasCommand) { //⌃Space hoặc ⌃⌥Space; chừa ⌘Space cho Spotlight
+                switchLanguage();
+                _lastFlag = 0;
+                _hasJustUsedHotKey = true;
+                return NULL;
+            }
+        }
+
         //switch language shortcut; convert hotkey
         if (type == kCGEventKeyDown) {
-            if (GET_SWITCH_KEY(vSwitchKeyStatus) != _keycode && GET_SWITCH_KEY(convertToolHotKey) != _keycode) {
+            if (!anySwitchKeyUsesKeyCode(_keycode) && GET_SWITCH_KEY(convertToolHotKey) != _keycode) {
                 _lastFlag = 0;
             } else {
-                if (GET_SWITCH_KEY(vSwitchKeyStatus) == _keycode && checkHotKey(vSwitchKeyStatus, GET_SWITCH_KEY(vSwitchKeyStatus) != 0xFE)){
+                if (anySwitchKeyUsesKeyCode(_keycode) && anySwitchKeyMatches()){
                     switchLanguage();
                     _lastFlag = 0;
                     _hasJustUsedHotKey = true;
@@ -638,7 +742,7 @@ extern "C" {
                 _lastFlag = _flag;
             } else if (_lastFlag > _flag)  {
                 //check switch
-                if (checkHotKey(vSwitchKeyStatus, GET_SWITCH_KEY(vSwitchKeyStatus) != 0xFE)) {
+                if (anySwitchKeyMatches()) {
                     _lastFlag = 0;
                     switchLanguage();
                     _hasJustUsedHotKey = true;

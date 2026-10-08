@@ -46,7 +46,8 @@ enum SettingsSection: String, CaseIterable, Identifiable {
 
 struct SettingsRootView: View {
     @ObservedObject var model: SettingsModel
-    @State private var section: SettingsSection = .typing
+    @State private var section: SettingsSection = SettingsSection(
+        rawValue: UserDefaults.standard.string(forKey: "vSettingsInitialSection") ?? "typing") ?? .typing
     @State private var query: String = ""
 
     private var sections: [SettingsSection] {
@@ -291,16 +292,23 @@ private struct HotkeySettings: View {
     @ObservedObject var model: SettingsModel
 
     var body: some View {
+        HotkeyListSection(model: model)
+
         SettingsCard {
             SettingsRow(title: "Hiện báo hiệu giữa màn hình khi chuyển",
                         subtitle: "Thay cho tiếng beep") {
                 Toggle("", isOn: $model.showHUD).labelsHidden()
             }
+            SettingsDivider()
+            SettingsRow(title: "Dùng phím chuyển bộ gõ của macOS",
+                        subtitle: "⌃Space sẽ bật/tắt tiếng Việt thay vì đổi bộ gõ hệ thống") {
+                Toggle("", isOn: $model.hijackInputSourceKey).labelsHidden()
+            }
         }
 
-        SettingsNotice(text: "Phần đặt tổ hợp phím chuyển vẫn nằm ở Bảng điều khiển cũ "
-                       + "(menu KietKey → Bảng điều khiển (cũ)…). "
-                       + "Phần dùng nhiều tổ hợp cùng lúc chưa làm.")
+        SettingsNotice(text: "Phím 🌐 không chiếm được: macOS xử lý nó ở tầng thấp hơn. "
+                       + "Nếu muốn dùng fn làm phím chuyển, đặt System Settings → Keyboard → "
+                       + "“Press 🌐 key to” thành “Do Nothing”.")
     }
 }
 
@@ -321,9 +329,8 @@ private struct AppSettings: View {
             }
         }
 
-        SettingsNotice(text: "Danh sách ứng dụng và website với ba chế độ "
-                       + "(luôn tắt / luôn bật / nhớ lần cuối) chưa có giao diện. "
-                       + "Quy tắc theo tên miền đang đặt bằng dòng lệnh:\n"
-                       + "defaults write com.tuyenmai.openkey vWebsiteRules -dict github.com 0")
+        AppRulesSection(model: model)
+
+        WebsiteRulesSection(model: model)
     }
 }

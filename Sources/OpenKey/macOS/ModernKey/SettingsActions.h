@@ -43,6 +43,34 @@ typedef NS_ENUM(NSInteger, KKSystemInputSourceMode) {
 + (KKSystemInputSourceMode)systemInputSourceMode;
 + (void)setSystemInputSourceMode:(KKSystemInputSourceMode)mode;
 
+#pragma mark quy tắc theo ứng dụng
+
+/// Mỗi phần tử: @{@"id": bundle id, @"name": tên hiển thị, @"mode": 0|1|2}
+/// mode: 0 luôn tắt tiếng Việt · 1 luôn bật · 2 nhớ lần cuối
++ (NSArray<NSDictionary*>*)appRules;
++ (void)setAppRuleMode:(NSInteger)mode forBundleId:(NSString*)bundleId;
++ (void)removeAppRuleForBundleId:(NSString*)bundleId;
+/// Các ứng dụng đang chạy, để chọn khi thêm quy tắc.
++ (NSArray<NSDictionary*>*)pickableApps;
+
+#pragma mark quy tắc theo website
+
+/// Mỗi phần tử: @{@"host": tên miền, @"mode": 0|1}
++ (NSArray<NSDictionary*>*)websiteRules;
++ (void)setWebsiteRuleMode:(NSInteger)mode forHost:(NSString*)host;
++ (void)removeWebsiteRuleForHost:(NSString*)host;
+
+#pragma mark tổ hợp phím chuyển
+
++ (NSArray<NSNumber*>*)switchKeys;
++ (void)setSwitchKeys:(NSArray<NSNumber*>*)keys;
+/// Mô tả tổ hợp để hiển thị, ví dụ "⌃⇧" hoặc "⌥Z".
++ (NSString*)describeSwitchKey:(NSInteger)hotKey;
+/// Dựng giá trị tổ hợp từ cờ phím và mã phím (0xFE nếu chỉ dùng phím bổ trợ).
++ (NSInteger)encodeSwitchKeyWithFlags:(NSUInteger)flags
+                              keyCode:(NSInteger)keyCode
+                            character:(NSString*)character;
+
 /// Phiên bản hiển thị, ví dụ "3.0 (2024)".
 + (NSString*)versionString;
 

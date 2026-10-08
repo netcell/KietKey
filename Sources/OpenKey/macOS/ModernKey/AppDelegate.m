@@ -27,6 +27,7 @@ extern void OnTableCodeChange(void);
 extern void OnInputMethodChanged(void);
 extern void RequestNewSession(void);
 extern void OnActiveAppChanged(void);
+extern NSString* RunSwitchKeyDiagnostics(void);
 
 //see document in Engine.h
 int vLanguage = 1;
@@ -52,6 +53,7 @@ int vQuickStartConsonant = 0;
 int vQuickEndConsonant = 0;
 int vRememberCode = 1; //new on version 2.0
 int vOtherLanguage = 1; //new on version 2.0
+int vHijackInputSourceKey = 0; //dùng phím chuyển bộ gõ của macOS để bật/tắt tiếng Việt
 int vTempOffOpenKey = 0; //new on version 2.0
 
 int vShowIconOnDock = 0; //new on version 2.0
@@ -169,6 +171,24 @@ extern bool convertToolDontAlertWhenCompleted;
 
     //theo dõi tên miền đang xem để áp quy tắc theo website
     BrowserURLStartWatching();
+
+    //tự kiểm tra việc chiếm phím chuyển bộ gõ của macOS
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"vSelfTestHijack"] != 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{ [self runHijackSelfTest]; });
+    }
+
+    //tự kiểm tra tra cứu quy tắc theo ứng dụng
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"vSelfTestAppRules"] != 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:[self runAppRuleDiagnostics]
+                                                  forKey:@"vSelfTestAppRulesResult"];
+    }
+
+    //tự kiểm tra logic nhiều tổ hợp phím chuyển
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"vSelfTestHotkeys"] != 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:RunSwitchKeyDiagnostics()
+                                                  forKey:@"vSelfTestHotkeysResult"];
+    }
 
     //init
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -582,8 +602,117 @@ extern bool convertToolDontAlertWhenCompleted;
     RequestNewSession();
 }
 
+/// Quy tắc do người dùng đặt cho từng ứng dụng, ưu tiên hơn cơ chế tự học.
+/// "vAppRules": { "<bundle id>": 0 | 1 | 2 }
+///   0 = luôn tắt tiếng Việt, 1 = luôn bật, 2 = nhớ lần cuối (tự học).
+/// Trả về -1 nếu không có quy tắc rõ ràng.
+-(NSInteger)explicitRuleForBundleId:(NSString*)bundleId {
+    NSDictionary* rules = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"vAppRules"];
+    if (![rules isKindOfClass:[NSDictionary class]] || rules.count == 0)
+        return -1;
+    if (bundleId.length == 0)
+        return -1;
+    NSNumber* mode = rules[bundleId];
+    if (![mode isKindOfClass:[NSNumber class]])
+        return -1;
+    NSInteger value = [mode integerValue];
+    return (value == 0 || value == 1) ? value : -1; //2 = nhớ lần cuối -> để cơ chế cũ lo
+}
+
+-(NSInteger)explicitRuleForFrontApp {
+    return [self explicitRuleForBundleId:
+            [[NSWorkspace sharedWorkspace] frontmostApplication].bundleIdentifier];
+}
+
+static NSString* currentInputSourceID(void) {
+    TISInputSourceRef source = TISCopyCurrentKeyboardInputSource();
+    if (source == NULL) return @"?";
+    NSString* value = (__bridge NSString*)TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
+    return value ?: @"?";
+}
+
+/// Tự kiểm tra việc chiếm phím ⌃Space: app tự tổng hợp phím (app có quyền
+/// Accessibility nên post được), rồi xem tiếng Việt có đổi không và bộ gõ hệ
+/// thống có bị đổi theo không. Bật bằng vSelfTestHijack.
+-(void)runHijackSelfTest {
+    BOOL languageBefore = (vLanguage == 1);
+    NSString* sourceBefore = currentInputSourceID();
+
+    CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+    CGEventRef down = CGEventCreateKeyboardEvent(source, 49, true);  //49 = Space
+    CGEventRef up   = CGEventCreateKeyboardEvent(source, 49, false);
+    CGEventSetFlags(down, kCGEventFlagMaskControl);
+    CGEventSetFlags(up,   kCGEventFlagMaskControl);
+    CGEventPost(kCGHIDEventTap, down);
+    CGEventPost(kCGHIDEventTap, up);
+    if (down) CFRelease(down);
+    if (up) CFRelease(up);
+    if (source) CFRelease(source);
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
+        BOOL languageAfter = (vLanguage == 1);
+        NSString* sourceAfter = currentInputSourceID();
+        BOOL languageToggled = (languageAfter != languageBefore);
+        BOOL sourceChanged = ![sourceAfter isEqualToString:sourceBefore];
+        NSString* verdict;
+        if (languageToggled && !sourceChanged)
+            verdict = @"DAT: chiem duoc phim";
+        else if (sourceChanged)
+            verdict = @"HONG: he thong van doi bo go (khong nuot duoc)";
+        else
+            verdict = @"HONG: khong thay doi gi (tap khong thay phim)";
+        NSString* result = [NSString stringWithFormat:@"%@ | tiengViet %d->%d | bogo %@ -> %@",
+                            verdict, languageBefore, languageAfter, sourceBefore, sourceAfter];
+        [[NSUserDefaults standardUserDefaults] setObject:result forKey:@"vSelfTestHijackResult"];
+    });
+}
+
+/// Tự kiểm tra việc tra cứu quy tắc mà không cần đổi ứng dụng thật
+/// (không làm được khi màn hình đang khoá). Bật bằng vSelfTestAppRules.
+-(NSString*)runAppRuleDiagnostics {
+    NSDictionary* saved = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"vAppRules"];
+    [[NSUserDefaults standardUserDefaults] setObject:@{@"a.always.off": @0,
+                                                       @"b.always.on": @1,
+                                                       @"c.remember": @2,
+                                                       @"d.rac": @"xxx"}
+                                              forKey:@"vAppRules"];
+    NSArray* cases = @[@[@"a.always.off", @0], @[@"b.always.on", @1],
+                       @[@"c.remember", @(-1)], @[@"d.rac", @(-1)],
+                       @[@"e.khong.co", @(-1)], @[@"", @(-1)]];
+    NSMutableString* out = [NSMutableString string];
+    for (NSArray* item in cases) {
+        NSInteger got = [self explicitRuleForBundleId:item[0]];
+        NSInteger want = [item[1] integerValue];
+        [out appendFormat:@"%@=%ld%@ ", item[0], (long)got,
+             got == want ? @"" : [NSString stringWithFormat:@"(SAI, can %ld)", (long)want]];
+    }
+    if (saved) {
+        [[NSUserDefaults standardUserDefaults] setObject:saved forKey:@"vAppRules"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"vAppRules"];
+    }
+    return out;
+}
+
 -(void)activeAppChanged: (NSNotification*)note {
-    if (vUseSmartSwitchKey && [OpenKeyManager isInited]) {
+    NSInteger rule = [self explicitRuleForFrontApp];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"vAppRulesDebug"] != 0) {
+        NSString* seen = [NSString stringWithFormat:@"%@ inited=%d rule=%ld",
+                          [[NSWorkspace sharedWorkspace] frontmostApplication].bundleIdentifier,
+                          (int)[OpenKeyManager isInited], (long)rule];
+        [[NSUserDefaults standardUserDefaults] setObject:seen forKey:@"vAppRulesLastSeen"];
+    }
+
+    if (![OpenKeyManager isInited])
+        return;
+
+    if (rule >= 0) {
+        [self setVietnameseEnabled:(rule == 1)];
+        return; //quy tắc rõ ràng thì bỏ qua phần tự học
+    }
+
+    if (vUseSmartSwitchKey) {
         OnActiveAppChanged();
     }
 }

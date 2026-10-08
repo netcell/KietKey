@@ -62,6 +62,10 @@ final class SettingsModel: ObservableObject {
         didSet { KKSettingsActions.setFlag(showHUD, forKey: "vShowSwitchHUD") }
     }
 
+    @Published var hijackInputSourceKey: Bool {
+        didSet { KKSettingsActions.setFlag(hijackInputSourceKey, forKey: "vHijackInputSourceKey") }
+    }
+
     // MARK: nhớ theo ứng dụng
 
     @Published var rememberLanguagePerApp: Bool {
@@ -70,6 +74,75 @@ final class SettingsModel: ObservableObject {
 
     @Published var rememberCodeTablePerApp: Bool {
         didSet { KKSettingsActions.setFlag(rememberCodeTablePerApp, forKey: "vRememberCode") }
+    }
+
+    // MARK: danh sách
+
+    @Published var switchKeys: [SwitchKeyItem] = []
+    @Published var appRules: [AppRule] = []
+    @Published var websiteRules: [WebsiteRule] = []
+    @Published var pickableApps: [AppRule] = []
+
+    func describe(_ hotKey: Int) -> String {
+        KKSettingsActions.describeSwitchKey(hotKey)
+    }
+
+    func reloadLists() {
+        switchKeys = KKSettingsActions.switchKeys().map {
+            SwitchKeyItem(id: UUID(), value: $0.intValue)
+        }
+        appRules = KKSettingsActions.appRules().map {
+            AppRule(id: $0["id"] as? String ?? "",
+                    name: $0["name"] as? String ?? "",
+                    mode: ($0["mode"] as? NSNumber)?.intValue ?? 2)
+        }
+        websiteRules = KKSettingsActions.websiteRules().map {
+            WebsiteRule(host: $0["host"] as? String ?? "",
+                        mode: ($0["mode"] as? NSNumber)?.intValue ?? 0)
+        }
+    }
+
+    func reloadPickableApps() {
+        pickableApps = KKSettingsActions.pickableApps().map {
+            AppRule(id: $0["id"] as? String ?? "", name: $0["name"] as? String ?? "", mode: 0)
+        }
+    }
+
+    // MARK: sửa danh sách
+
+    func addSwitchKey(_ value: Int) {
+        guard !switchKeys.contains(where: { $0.value == value }) else { return }
+        let keys = switchKeys.map { $0.value } + [value]
+        KKSettingsActions.setSwitchKeys(keys.map { NSNumber(value: $0) })
+        reloadLists()
+    }
+
+    func removeSwitchKey(at index: Int) {
+        guard switchKeys.count > 1, switchKeys.indices.contains(index) else { return }
+        var keys = switchKeys.map { $0.value }
+        keys.remove(at: index)
+        KKSettingsActions.setSwitchKeys(keys.map { NSNumber(value: $0) })
+        reloadLists()
+    }
+
+    func setAppRuleMode(_ mode: Int, for bundleId: String) {
+        KKSettingsActions.setAppRuleMode(mode, forBundleId: bundleId)
+        reloadLists()
+    }
+
+    func removeAppRule(_ bundleId: String) {
+        KKSettingsActions.removeAppRule(forBundleId: bundleId)
+        reloadLists()
+    }
+
+    func setWebsiteRuleMode(_ mode: Int, for host: String) {
+        KKSettingsActions.setWebsiteRuleMode(mode, forHost: host)
+        reloadLists()
+    }
+
+    func removeWebsiteRule(_ host: String) {
+        KKSettingsActions.removeWebsiteRule(forHost: host)
+        reloadLists()
     }
 
     // MARK: dữ liệu chỉ đọc
@@ -89,12 +162,15 @@ final class SettingsModel: ObservableObject {
         upperCaseFirstChar = KKSettingsActions.flag(forKey: "UpperCaseFirstChar")
         systemInputSourceMode = KKSettingsActions.systemInputSourceMode().rawValue
         showHUD = KKSettingsActions.flag(forKey: "vShowSwitchHUD")
+        hijackInputSourceKey = KKSettingsActions.flag(forKey: "vHijackInputSourceKey")
         rememberLanguagePerApp = KKSettingsActions.flag(forKey: "UseSmartSwitchKey")
         rememberCodeTablePerApp = KKSettingsActions.flag(forKey: "vRememberCode")
 
         inputTypeNames = KKSettingsActions.inputTypeNames()
         codeTableNames = KKSettingsActions.codeTableNames()
         versionString = KKSettingsActions.versionString()
+
+        reloadLists()
     }
 
     /// Đọc lại từ engine — gọi khi cửa sổ hiện ra, vì trạng thái có thể đã đổi
@@ -106,5 +182,6 @@ final class SettingsModel: ObservableObject {
         if inputType != type { inputType = type }
         let table = KKSettingsActions.codeTable()
         if codeTable != table { codeTable = table }
+        reloadLists()
     }
 }

@@ -26,6 +26,13 @@ SIGN_ID="${OPENKEY_SIGN_ID:--}"
 NOTARIZE_PROFILE="${OPENKEY_NOTARIZE_PROFILE:-}"
 # Tuỳ chọn: ép notarytool đọc hồ sơ từ một keychain cụ thể.
 NOTARIZE_KEYCHAIN="${OPENKEY_NOTARIZE_KEYCHAIN:-}"
+# Cách ổn định hơn keychain: App Store Connect API key (.p8)
+#   OPENKEY_NOTARIZE_KEY=~/.appstoreconnect/private_keys/AuthKey_XXXX.p8
+#   OPENKEY_NOTARIZE_KEY_ID=XXXX
+#   OPENKEY_NOTARIZE_ISSUER=<issuer uuid>
+NOTARIZE_KEY="${OPENKEY_NOTARIZE_KEY:-}"
+NOTARIZE_KEY_ID="${OPENKEY_NOTARIZE_KEY_ID:-}"
+NOTARIZE_ISSUER="${OPENKEY_NOTARIZE_ISSUER:-}"
 
 # Hardened Runtime bắt buộc để notarize được; bật luôn cho Developer ID.
 # --timestamp: notarize BẮT BUỘC có secure timestamp. Không có thì Apple trả về
@@ -77,7 +84,7 @@ if [[ "$HARDENED" == "YES" ]]; then
   echo "    OK: có secure timestamp, không còn entitlement debug."
 fi
 
-if [[ -n "$NOTARIZE_PROFILE" ]]; then
+if [[ -n "$NOTARIZE_PROFILE" || -n "$NOTARIZE_KEY" ]]; then
   if [[ "$HARDENED" != "YES" ]]; then
     echo "Bỏ qua notarize: cần ký bằng Developer ID Application." >&2
   else
@@ -85,7 +92,13 @@ if [[ -n "$NOTARIZE_PROFILE" ]]; then
     echo "==> Gửi Apple notarize (chỉ bước này cần mạng, app thì không)"
     rm -f "$ZIP"
     ditto -c -k --sequesterRsrc --keepParent "$APP" "$ZIP"
-    if [[ -n "$NOTARIZE_KEYCHAIN" ]]; then
+    if [[ -n "$NOTARIZE_KEY" ]]; then
+      #API key (.p8): không đụng keychain. Ổn định hơn hẳn — hồ sơ keychain của
+      #notarytool đã tự biến mất ba lần giữa các lần chạy.
+      SUBMIT_OUT="$(xcrun notarytool submit "$ZIP" --key "$NOTARIZE_KEY" \
+                      --key-id "$NOTARIZE_KEY_ID" --issuer "$NOTARIZE_ISSUER" \
+                      --wait 2>&1 || true)"
+    elif [[ -n "$NOTARIZE_KEYCHAIN" ]]; then
       SUBMIT_OUT="$(xcrun notarytool submit "$ZIP" --keychain-profile "$NOTARIZE_PROFILE" \
                       --keychain "$NOTARIZE_KEYCHAIN" --wait 2>&1 || true)"
     else
@@ -94,11 +107,16 @@ if [[ -n "$NOTARIZE_PROFILE" ]]; then
     fi
     echo "$SUBMIT_OUT"
     if ! grep -q "status: Accepted" <<<"$SUBMIT_OUT"; then
-      SUB_ID="$(grep -m1 "  id: " <<<"$SUBMIT_OUT" | awk '{print $2}')"
-      echo "Notarize THẤT BẠI. Xem lý do:" >&2
-      KC_HINT=""
-      [[ -n "$NOTARIZE_KEYCHAIN" ]] && KC_HINT=" --keychain $NOTARIZE_KEYCHAIN"
-      echo "  xcrun notarytool log $SUB_ID --keychain-profile $NOTARIZE_PROFILE$KC_HINT" >&2
+      #|| true: không có dòng "id:" thì grep trả 1, và set -e giết script
+      #TRƯỚC KHI in được lý do. Đã dính đúng lỗi này hai lần.
+      SUB_ID="$(grep -m1 '  id: ' <<<"$SUBMIT_OUT" | awk '{print $2}' || true)"
+      echo "" >&2
+      echo "Notarize THẤT BẠI." >&2
+      if [[ -n "$SUB_ID" ]]; then
+        echo "Xem lý do:  xcrun notarytool log $SUB_ID --keychain-profile $NOTARIZE_PROFILE" >&2
+      else
+        echo "Không gửi được lên Apple — xem thông báo ở trên." >&2
+      fi
       exit 1
     fi
     echo "==> Đóng vé vào app"
