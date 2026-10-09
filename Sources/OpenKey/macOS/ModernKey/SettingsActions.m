@@ -27,6 +27,19 @@ extern int vUpperCaseFirstChar;
 extern int vRestoreIfWrongSpelling;
 extern int vSwitchKeyStatus;
 extern int vHijackInputSourceKey;
+extern int vTempOffSpelling;
+extern int vAllowConsonantZFWJ;
+extern int vFixRecommendBrowser;
+extern int vSendKeyStepByStep;
+extern int vPerformLayoutCompat;
+extern int vUseMacro;
+extern int vUseMacroInEnglishMode;
+extern int vAutoCapsMacro;
+extern int vQuickStartConsonant;
+extern int vQuickEndConsonant;
+extern int vTempOffOpenKey;
+extern int vShowIconOnDock;
+extern int vFixChromiumBrowser;
 
 @implementation KKSettingsActions
 
@@ -81,6 +94,19 @@ static int* engineVariableForKey(NSString* key) {
     if ([key isEqualToString:@"UpperCaseFirstChar"])  return &vUpperCaseFirstChar;
     if ([key isEqualToString:@"RestoreIfWrongSpelling"]) return &vRestoreIfWrongSpelling;
     if ([key isEqualToString:@"vHijackInputSourceKey"]) return &vHijackInputSourceKey;
+    if ([key isEqualToString:@"vTempOffSpelling"])        return &vTempOffSpelling;
+    if ([key isEqualToString:@"vAllowConsonantZFWJ"])     return &vAllowConsonantZFWJ;
+    if ([key isEqualToString:@"FixRecommendBrowser"])     return &vFixRecommendBrowser;
+    if ([key isEqualToString:@"SendKeyStepByStep"])       return &vSendKeyStepByStep;
+    if ([key isEqualToString:@"vPerformLayoutCompat"])    return &vPerformLayoutCompat;
+    if ([key isEqualToString:@"UseMacro"])                return &vUseMacro;
+    if ([key isEqualToString:@"UseMacroInEnglishMode"])   return &vUseMacroInEnglishMode;
+    if ([key isEqualToString:@"vAutoCapsMacro"])          return &vAutoCapsMacro;
+    if ([key isEqualToString:@"vQuickStartConsonant"])    return &vQuickStartConsonant;
+    if ([key isEqualToString:@"vQuickEndConsonant"])      return &vQuickEndConsonant;
+    if ([key isEqualToString:@"vTempOffOpenKey"])         return &vTempOffOpenKey;
+    if ([key isEqualToString:@"vShowIconOnDock"])         return &vShowIconOnDock;
+    if ([key isEqualToString:@"vFixChromiumBrowser"])     return &vFixChromiumBrowser;
     return NULL;
 }
 
@@ -104,8 +130,41 @@ static BOOL defaultsToOn(NSString* key) {
     if (engineVar != NULL)
         *engineVar = value ? 1 : 0;
 
+    //vài khoá cần làm thêm việc ngoài biến engine
     if ([key isEqualToString:@"Spelling"])
         OnSpellCheckingChanged();
+    else if ([key isEqualToString:@"RunOnStartup"])
+        [appDelegate setRunOnStartup:value];
+    else if ([key isEqualToString:@"GrayIcon"])
+        [appDelegate setGrayIcon:value];
+    else if ([key isEqualToString:@"vShowIconOnDock"])
+        [appDelegate showIconOnDock:value];
+}
+
+#pragma mark - beep, cửa sổ phụ
+
++ (BOOL)beepOnSwitch {
+    return (vSwitchKeyStatus & 0x8000) != 0;
+}
+
++ (void)setBeepOnSwitch:(BOOL)enabled {
+    vSwitchKeyStatus &= ~0x8000;
+    if (enabled) vSwitchKeyStatus |= 0x8000;
+    [[NSUserDefaults standardUserDefaults] setInteger:vSwitchKeyStatus forKey:@"SwitchKeyStatus"];
+    OnSwitchKeyListChanged();
+}
+
++ (void)openMacroWindow {
+    [appDelegate onMacroSelected];
+}
+
++ (void)openConvertTool {
+    [appDelegate onConvertTool];
+}
+
++ (void)openSourceCodePage {
+    [[NSWorkspace sharedWorkspace] openURL:
+        [NSURL URLWithString:@"https://github.com/tuyenvm/OpenKey"]];
 }
 
 #pragma mark - chế độ bộ gõ hệ thống

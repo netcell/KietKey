@@ -129,12 +129,8 @@ struct SettingsRootView: View {
         case .typing:   TypingSettings(model: model)
         case .hotkeys:  HotkeySettings(model: model)
         case .apps:     AppSettings(model: model)
-        case .macro:
-            SettingsNotice(text: "Phần gõ tắt vẫn dùng cửa sổ cũ: "
-                           + "menu KietKey → Gõ tắt…")
-        case .advanced:
-            SettingsNotice(text: "Các tuỳ chọn còn lại vẫn nằm ở Bảng điều khiển cũ: "
-                           + "menu KietKey → Bảng điều khiển (cũ)…")
+        case .macro:    MacroSettings(model: model)
+        case .advanced: AdvancedSettings(model: model)
         }
     }
 }
@@ -168,10 +164,6 @@ private struct TypingSettings: View {
                 .fixedSize()
             }
             SettingsDivider()
-            SettingsRow(title: "Kiểm tra chính tả") {
-                Toggle("", isOn: $model.spelling).labelsHidden()
-            }
-            SettingsDivider()
             SettingsRow(title: "Đặt dấu kiểu mới", subtitle: "oà, uý thay vì òa, úy") {
                 Toggle("", isOn: $model.modernOrthography).labelsHidden()
             }
@@ -186,6 +178,30 @@ private struct TypingSettings: View {
             SettingsDivider()
             SettingsRow(title: "Viết hoa chữ cái đầu câu") {
                 Toggle("", isOn: $model.upperCaseFirstChar).labelsHidden()
+            }
+        }
+
+        VStack(alignment: .leading, spacing: 0) {
+            SettingsSectionHeader(text: "Chính tả")
+            SettingsCard {
+                SettingsRow(title: "Kiểm tra chính tả") {
+                    Toggle("", isOn: $model.spelling).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Tự khôi phục phím với từ sai") {
+                    Toggle("", isOn: $model.restoreIfInvalidWord).labelsHidden()
+                        .disabled(!model.spelling)
+                }
+                SettingsDivider()
+                SettingsRow(title: "Cho phép z, w, j, f làm phụ âm đầu") {
+                    Toggle("", isOn: $model.allowZFWJ).labelsHidden()
+                        .disabled(!model.spelling)
+                }
+                SettingsDivider()
+                SettingsRow(title: "Tạm tắt chính tả bằng phím ⌃",
+                            subtitle: "Dùng khi gõ từ như Đắk Lắk, Krông…") {
+                    Toggle("", isOn: $model.tempOffSpelling).labelsHidden()
+                }
             }
         }
 
@@ -300,9 +316,18 @@ private struct HotkeySettings: View {
                 Toggle("", isOn: $model.showHUD).labelsHidden()
             }
             SettingsDivider()
+            SettingsRow(title: "Kêu beep khi chuyển") {
+                Toggle("", isOn: $model.beepOnSwitch).labelsHidden()
+            }
+            SettingsDivider()
             SettingsRow(title: "Dùng phím chuyển bộ gõ của macOS",
                         subtitle: "⌃Space sẽ bật/tắt tiếng Việt thay vì đổi bộ gõ hệ thống") {
                 Toggle("", isOn: $model.hijackInputSourceKey).labelsHidden()
+            }
+            SettingsDivider()
+            SettingsRow(title: "Tạm tắt KietKey bằng phím ⌘",
+                        subtitle: "Giữ Command thì ngừng gõ tiếng Việt cho tới từ tiếp theo") {
+                Toggle("", isOn: $model.tempOffByCommand).labelsHidden()
             }
         }
 
@@ -332,5 +357,120 @@ private struct AppSettings: View {
         AppRulesSection(model: model)
 
         WebsiteRulesSection(model: model)
+    }
+}
+
+
+// MARK: - Gõ tắt
+
+private struct MacroSettings: View {
+    @ObservedObject var model: SettingsModel
+
+    var body: some View {
+        SettingsCard {
+            SettingsRow(title: "Cho phép gõ tắt") {
+                Toggle("", isOn: $model.useMacro).labelsHidden()
+            }
+            SettingsDivider()
+            SettingsRow(title: "Gõ tắt cả khi đang tắt tiếng Việt") {
+                Toggle("", isOn: $model.useMacroInEnglish).labelsHidden()
+                    .disabled(!model.useMacro)
+            }
+            SettingsDivider()
+            SettingsRow(title: "Tự động viết hoa theo phím tắt") {
+                Toggle("", isOn: $model.autoCapsMacro).labelsHidden()
+                    .disabled(!model.useMacro)
+            }
+            SettingsDivider()
+            SettingsRow(title: "Bảng gõ tắt") {
+                Button("Mở…") { KKSettingsActions.openMacroWindow() }
+                    .controlSize(.small)
+            }
+        }
+
+        VStack(alignment: .leading, spacing: 0) {
+            SettingsSectionHeader(text: "Gõ tắt phụ âm")
+            SettingsCard {
+                SettingsRow(title: "Phụ âm đầu", subtitle: "f → ph, j → gi, w → qu…") {
+                    Toggle("", isOn: $model.quickStartConsonant).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Phụ âm cuối", subtitle: "g → ng, h → nh, k → ch…") {
+                    Toggle("", isOn: $model.quickEndConsonant).labelsHidden()
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Nâng cao
+
+private struct AdvancedSettings: View {
+    @ObservedObject var model: SettingsModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            SettingsSectionHeader(text: "Khởi động & biểu tượng")
+            SettingsCard {
+                SettingsRow(title: "Khởi động cùng macOS") {
+                    Toggle("", isOn: $model.runOnStartup).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Hiện biểu tượng trên thanh Dock") {
+                    Toggle("", isOn: $model.showIconOnDock).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Biểu tượng hiện đại trên thanh menu",
+                            subtitle: "Hợp với chế độ tối") {
+                    Toggle("", isOn: $model.grayIcon).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Mở cửa sổ này khi khởi động") {
+                    Toggle("", isOn: $model.showSettingsOnStartup).labelsHidden()
+                }
+            }
+        }
+
+        VStack(alignment: .leading, spacing: 0) {
+            SettingsSectionHeader(text: "Tương thích")
+            SettingsCard {
+                SettingsRow(title: "Sửa lỗi gợi ý",
+                            subtitle: "Trình duyệt, Excel và các ô có gợi ý tự động") {
+                    Toggle("", isOn: $model.fixRecommendBrowser).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Sửa lỗi trên Chromium",
+                            subtitle: "Chỉ bật khi Chrome/Edge gõ bị sai") {
+                    Toggle("", isOn: $model.fixChromium).labelsHidden()
+                        .disabled(!model.fixRecommendBrowser)
+                }
+                SettingsDivider()
+                SettingsRow(title: "Tương thích Telex trên layout khác",
+                            subtitle: "Dvorak, Colemak…") {
+                    Toggle("", isOn: $model.performLayoutCompat).labelsHidden()
+                }
+                SettingsDivider()
+                SettingsRow(title: "Gửi từng phím",
+                            subtitle: "Chậm hơn; chỉ bật khi một ứng dụng nào đó gõ bị lỗi") {
+                    Toggle("", isOn: $model.sendKeyStepByStep).labelsHidden()
+                }
+            }
+        }
+
+        VStack(alignment: .leading, spacing: 0) {
+            SettingsSectionHeader(text: "Công cụ")
+            SettingsCard {
+                SettingsRow(title: "Chuyển mã clipboard") {
+                    Button("Mở…") { KKSettingsActions.openConvertTool() }
+                        .controlSize(.small)
+                }
+                SettingsDivider()
+                SettingsRow(title: "Mã nguồn",
+                            subtitle: "KietKey dựa trên OpenKey, giấy phép GPL") {
+                    Button("Mở GitHub…") { KKSettingsActions.openSourceCodePage() }
+                        .controlSize(.small)
+                }
+            }
+        }
     }
 }

@@ -71,6 +71,16 @@ typedef NS_ENUM(NSInteger, KKSystemInputSourceMode) {
                               keyCode:(NSInteger)keyCode
                             character:(NSString*)character;
 
+#pragma mark khác
+
+/// Kêu beep khi chuyển (bit 15 của vSwitchKeyStatus).
++ (BOOL)beepOnSwitch;
++ (void)setBeepOnSwitch:(BOOL)enabled;
+
++ (void)openMacroWindow;
++ (void)openConvertTool;
++ (void)openSourceCodePage;
+
 /// Phiên bản hiển thị, ví dụ "3.0 (2024)".
 + (NSString*)versionString;
 

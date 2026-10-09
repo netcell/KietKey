@@ -193,11 +193,11 @@ extern bool convertToolDontAlertWhenCompleted;
     //init
     dispatch_async(dispatch_get_main_queue(), ^{
         if (![OpenKeyManager initEventTap]) {
-            [self onControlPanelSelected];
+            [self onSettingsWindowSelected];
         } else {
             NSInteger showui = [[NSUserDefaults standardUserDefaults] integerForKey:@"ShowUIOnStartup"];
             if (showui == 1) {
-                [self onControlPanelSelected];
+                [self onSettingsWindowSelected];
             }
         }
         [self setQuickConvertString];
@@ -256,7 +256,6 @@ extern bool convertToolDontAlertWhenCompleted;
     [theMenu addItem:[NSMenuItem separatorItem]];
     
     [theMenu addItemWithTitle:@"Cài đặt..." action:@selector(onSettingsWindowSelected) keyEquivalent:@","];
-    [theMenu addItemWithTitle:@"Bảng điều khiển (cũ)..." action:@selector(onControlPanelSelected) keyEquivalent:@""];
     [theMenu addItemWithTitle:@"Gõ tắt..." action:@selector(onMacroSelected) keyEquivalent:@""];
     [theMenu addItemWithTitle:@"Giới thiệu" action:@selector(onAboutSelected) keyEquivalent:@""];
     [theMenu addItem:[NSMenuItem separatorItem]];

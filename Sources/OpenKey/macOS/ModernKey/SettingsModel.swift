@@ -48,6 +48,84 @@ final class SettingsModel: ObservableObject {
         didSet { KKSettingsActions.setFlag(upperCaseFirstChar, forKey: "UpperCaseFirstChar") }
     }
 
+    @Published var restoreIfInvalidWord: Bool {
+        didSet { KKSettingsActions.setFlag(restoreIfInvalidWord, forKey: "RestoreIfInvalidWord") }
+    }
+
+    @Published var allowZFWJ: Bool {
+        didSet { KKSettingsActions.setFlag(allowZFWJ, forKey: "vAllowConsonantZFWJ") }
+    }
+
+    @Published var tempOffSpelling: Bool {
+        didSet { KKSettingsActions.setFlag(tempOffSpelling, forKey: "vTempOffSpelling") }
+    }
+
+    // MARK: phím chuyển
+
+    @Published var beepOnSwitch: Bool {
+        didSet { KKSettingsActions.setBeepOnSwitch(beepOnSwitch) }
+    }
+
+    @Published var tempOffByCommand: Bool {
+        didSet { KKSettingsActions.setFlag(tempOffByCommand, forKey: "vTempOffOpenKey") }
+    }
+
+    // MARK: gõ tắt
+
+    @Published var useMacro: Bool {
+        didSet { KKSettingsActions.setFlag(useMacro, forKey: "UseMacro") }
+    }
+
+    @Published var useMacroInEnglish: Bool {
+        didSet { KKSettingsActions.setFlag(useMacroInEnglish, forKey: "UseMacroInEnglishMode") }
+    }
+
+    @Published var autoCapsMacro: Bool {
+        didSet { KKSettingsActions.setFlag(autoCapsMacro, forKey: "vAutoCapsMacro") }
+    }
+
+    @Published var quickStartConsonant: Bool {
+        didSet { KKSettingsActions.setFlag(quickStartConsonant, forKey: "vQuickStartConsonant") }
+    }
+
+    @Published var quickEndConsonant: Bool {
+        didSet { KKSettingsActions.setFlag(quickEndConsonant, forKey: "vQuickEndConsonant") }
+    }
+
+    // MARK: nâng cao
+
+    @Published var runOnStartup: Bool {
+        didSet { KKSettingsActions.setFlag(runOnStartup, forKey: "RunOnStartup") }
+    }
+
+    @Published var showIconOnDock: Bool {
+        didSet { KKSettingsActions.setFlag(showIconOnDock, forKey: "vShowIconOnDock") }
+    }
+
+    @Published var showSettingsOnStartup: Bool {
+        didSet { KKSettingsActions.setFlag(showSettingsOnStartup, forKey: "ShowUIOnStartup") }
+    }
+
+    @Published var grayIcon: Bool {
+        didSet { KKSettingsActions.setFlag(grayIcon, forKey: "GrayIcon") }
+    }
+
+    @Published var sendKeyStepByStep: Bool {
+        didSet { KKSettingsActions.setFlag(sendKeyStepByStep, forKey: "SendKeyStepByStep") }
+    }
+
+    @Published var fixRecommendBrowser: Bool {
+        didSet { KKSettingsActions.setFlag(fixRecommendBrowser, forKey: "FixRecommendBrowser") }
+    }
+
+    @Published var fixChromium: Bool {
+        didSet { KKSettingsActions.setFlag(fixChromium, forKey: "vFixChromiumBrowser") }
+    }
+
+    @Published var performLayoutCompat: Bool {
+        didSet { KKSettingsActions.setFlag(performLayoutCompat, forKey: "vPerformLayoutCompat") }
+    }
+
     /// 0 không can thiệp · 1 nhường bộ gõ hệ thống · 2 khoá ở ABC
     @Published var systemInputSourceMode: Int {
         didSet {
@@ -165,6 +243,24 @@ final class SettingsModel: ObservableObject {
         hijackInputSourceKey = KKSettingsActions.flag(forKey: "vHijackInputSourceKey")
         rememberLanguagePerApp = KKSettingsActions.flag(forKey: "UseSmartSwitchKey")
         rememberCodeTablePerApp = KKSettingsActions.flag(forKey: "vRememberCode")
+        restoreIfInvalidWord = KKSettingsActions.flag(forKey: "RestoreIfInvalidWord")
+        allowZFWJ = KKSettingsActions.flag(forKey: "vAllowConsonantZFWJ")
+        tempOffSpelling = KKSettingsActions.flag(forKey: "vTempOffSpelling")
+        beepOnSwitch = KKSettingsActions.beepOnSwitch()
+        tempOffByCommand = KKSettingsActions.flag(forKey: "vTempOffOpenKey")
+        useMacro = KKSettingsActions.flag(forKey: "UseMacro")
+        useMacroInEnglish = KKSettingsActions.flag(forKey: "UseMacroInEnglishMode")
+        autoCapsMacro = KKSettingsActions.flag(forKey: "vAutoCapsMacro")
+        quickStartConsonant = KKSettingsActions.flag(forKey: "vQuickStartConsonant")
+        quickEndConsonant = KKSettingsActions.flag(forKey: "vQuickEndConsonant")
+        runOnStartup = KKSettingsActions.flag(forKey: "RunOnStartup")
+        showIconOnDock = KKSettingsActions.flag(forKey: "vShowIconOnDock")
+        grayIcon = KKSettingsActions.flag(forKey: "GrayIcon")
+        showSettingsOnStartup = KKSettingsActions.flag(forKey: "ShowUIOnStartup")
+        sendKeyStepByStep = KKSettingsActions.flag(forKey: "SendKeyStepByStep")
+        fixRecommendBrowser = KKSettingsActions.flag(forKey: "FixRecommendBrowser")
+        fixChromium = KKSettingsActions.flag(forKey: "vFixChromiumBrowser")
+        performLayoutCompat = KKSettingsActions.flag(forKey: "vPerformLayoutCompat")
 
         inputTypeNames = KKSettingsActions.inputTypeNames()
         codeTableNames = KKSettingsActions.codeTableNames()
