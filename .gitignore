@@ -14,3 +14,6 @@ xcuserdata/
 
 # Website
 site/node_modules/
+
+# Local Netlify folder
+.netlify
