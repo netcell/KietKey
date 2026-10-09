@@ -9,7 +9,26 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "DENY"
 
+# CSS và JS KHÔNG được cache vĩnh viễn: tên file không có hash nội dung, nên
+# "immutable" đồng nghĩa người đã ghé thăm sẽ không bao giờ nhận bản sửa.
+# ETag lo phần còn lại — sửa đổi tới ngay, không sửa gì thì trả 304.
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Bản tải về: giữ URL cố định nên phải kiểm tra lại mỗi lần.
+[[headers]]
+  for = "/download/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
