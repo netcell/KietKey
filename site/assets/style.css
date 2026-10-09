@@ -178,9 +178,10 @@ h1 {
   -webkit-backdrop-filter: blur(12px);
 }
 
-.hud-slide {
-  height: 58px;
-  overflow: hidden;
+/* Khung cắt và cột trượt PHẢI là hai element khác nhau: nếu để chung, chính
+   khung bị dịch chuyển nên chữ nhảy lên rồi rơi lại chứ không bao giờ đổi. */
+.hud-clip { height: 58px; overflow: hidden; }
+.hud-clip .hud-slide {
   display: block;
   animation: hud-slide 7s cubic-bezier(0.62, 0.01, 0.2, 1) infinite;
 }
@@ -497,5 +498,5 @@ footer .muted { color: var(--fg-3); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hud-slide, .pane.is-shown { animation: none; }
+  .hud-clip .hud-slide, .pane.is-shown { animation: none; }
 }

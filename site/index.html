@@ -45,13 +45,11 @@
 
     <div class="hud-demo" aria-hidden="true">
       <div class="hud">
-        <div class="hud-slide">
-          <span class="hud-letter">V</span>
-          <span class="hud-letter">E</span>
+        <div class="hud-clip">
+          <div class="hud-slide"><span>V</span><span>E</span></div>
         </div>
-        <div class="hud-slide hud-caption">
-          <span>Tiếng Việt</span>
-          <span>English</span>
+        <div class="hud-clip hud-caption">
+          <div class="hud-slide"><span>Tiếng Việt</span><span>English</span></div>
         </div>
       </div>
       <p class="hud-note">Báo hiệu giữa màn hình khi chuyển — thay cho tiếng beep</p>
@@ -126,7 +124,7 @@
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 12h8"></path></svg>
         </div>
-        <h3>Báo hiệu kín đáo</h3>
+        <h3>Báo hiệu rõ ràng</h3>
         <p>
           Một ô kính mờ hiện giữa màn hình 0,6 giây rồi tan. Chữ trượt dọc khi đổi
           trạng thái. Không còn phải đoán xem mình đang gõ tiếng gì.
@@ -286,14 +284,6 @@
       </div>
     </div>
 
-    <h3 class="build-title">Hoặc tự build từ mã nguồn</h3>
-    <pre><code>git clone https://github.com/netcell/KietKey.git
-cd KietKey
-OPENKEY_SIGN_ID="-" ./build.sh</code></pre>
-    <p class="note">
-      Cần Xcode 26 trở lên. Script tự kiểm tra binary không có symbol mạng và
-      <em>dừng build</em> nếu có.
-    </p>
   </section>
 
   <section class="privacy">
