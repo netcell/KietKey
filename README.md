@@ -69,8 +69,18 @@ gì sẽ fail trước khi tốn một vòng gửi lên Apple.
 ```
 Sources/OpenKey/engine/   engine xử lý tiếng Việt, C++ thuần (chung với OpenKey)
 Sources/OpenKey/macOS/    ứng dụng macOS
-site/                     website
+site/                     website (deploy lên Netlify)
+tools/MakeIcon.swift      vẽ icon bằng CoreGraphics
 build.sh                  build + ký + notarize + cài
+```
+
+## Icon
+
+Icon được vẽ bằng mã, không phải file ảnh dựng sẵn. Sửa rồi dựng lại:
+
+```bash
+swift tools/MakeIcon.swift /tmp/KietKey.iconset
+iconutil -c icns /tmp/KietKey.iconset -o Sources/OpenKey/macOS/ModernKey/Resources/Icon.icns
 ```
 
 ## Giấy phép

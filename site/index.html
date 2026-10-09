@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KietKey — Bộ gõ tiếng Việt cho macOS</title>
+<meta name="description" content="Bộ gõ tiếng Việt cho macOS. Không kết nối Internet, không theo dõi. Nhiều tổ hợp phím chuyển, quy tắc theo ứng dụng và website, báo hiệu giữa màn hình.">
+<link rel="icon" href="assets/icon-128.png">
+<meta property="og:title" content="KietKey — Bộ gõ tiếng Việt cho macOS">
+<meta property="og:description" content="Không kết nối Internet. Nhiều tổ hợp phím chuyển. Quy tắc theo ứng dụng và website.">
+<meta property="og:image" content="https://kietkey.anhnt.com/assets/icon.png">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top">
+    <img src="assets/icon-128.png" alt="" width="28" height="28">
+    <span>KietKey</span>
+  </a>
+  <nav>
+    <a href="#tinh-nang">Tính năng</a>
+    <a href="#giao-dien">Giao diện</a>
+    <a href="#cai-dat">Cài đặt</a>
+    <a href="https://github.com/netcell/KietKey">GitHub</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <p class="eyebrow">Bộ gõ tiếng Việt cho macOS</p>
+    <h1>Gõ tiếng Việt,<br><span class="accent">không ai nhìn trộm.</span></h1>
+    <p class="lede">
+      KietKey không có một dòng code mạng nào. Không kiểm tra bản mới, không gửi
+      thống kê, không quảng cáo. Script build tự kiểm tra lại binary và dừng build
+      nếu có symbol mạng lọt vào.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#cai-dat">Cài đặt</a>
+      <a class="btn" href="https://github.com/netcell/KietKey">Xem mã nguồn</a>
+    </div>
+    <p class="req">macOS 26 trở lên · Miễn phí · Giấy phép GPL</p>
+
+    <div class="hud-demo" aria-hidden="true">
+      <div class="hud">
+        <div class="hud-slide">
+          <span class="hud-letter">V</span>
+          <span class="hud-letter">E</span>
+        </div>
+        <div class="hud-slide hud-caption">
+          <span>Tiếng Việt</span>
+          <span>English</span>
+        </div>
+      </div>
+      <p class="hud-note">Báo hiệu giữa màn hình khi chuyển — thay cho tiếng beep</p>
+    </div>
+  </section>
+
+  <section id="tinh-nang" class="features">
+    <h2>Những thứ bộ gõ khác không có</h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"></path><path d="M21 3 12 12"></path><path d="M15 3h6v6"></path></svg>
+        </div>
+        <h3>Không kết nối Internet</h3>
+        <p>
+          Toàn bộ phần kiểm tra bản mới và tự cập nhật đã bị gỡ khỏi mã nguồn.
+          Binary không link CFNetwork, không có symbol mạng nào — và build sẽ
+          <em>thất bại</em> nếu điều đó thay đổi.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2.5"></rect><path d="M7 10h.01M11 10h.01M15 10h.01M8 14h8"></path></svg>
+        </div>
+        <h3>Nhiều tổ hợp phím chuyển</h3>
+        <p>
+          Đặt bao nhiêu tổ hợp cũng được, dùng song song. Máy bàn quen
+          <kbd>⌃</kbd><kbd>⇧</kbd>, MacBook quen <kbd>fn</kbd><kbd>⇧</kbd> — không
+          phải đổi qua đổi lại nữa. Hỗ trợ cả phím <kbd>fn</kbd>.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"></rect></svg>
+        </div>
+        <h3>Quy tắc theo ứng dụng</h3>
+        <p>
+          Terminal và Xcode <em>luôn tắt</em>, Mail <em>luôn bật</em>, còn lại thì
+          <em>nhớ lần cuối</em>. Đặt một lần rồi quên đi — phím chuyển vẫn bật lại
+          được bất cứ lúc nào.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"></path></svg>
+        </div>
+        <h3>Quy tắc theo website</h3>
+        <p>
+          GitHub tắt tiếng Việt, Messenger bật. Khớp cả tên miền con. Chỉ đọc
+          <em>tên miền</em> của tab đang xem — không đọc đường dẫn, không đọc nội
+          dung, không gửi đi đâu.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path><circle cx="12" cy="12" r="3.5"></circle></svg>
+        </div>
+        <h3>Không đánh nhau với macOS</h3>
+        <p>
+          Máy có sẵn Simple Telex của Apple? Chọn <em>nhường bộ gõ hệ thống</em>
+          hoặc <em>khoá ở ABC</em>. Có thể chiếm luôn <kbd>⌃</kbd><kbd>Space</kbd>
+          để nó bật/tắt tiếng Việt thay vì đổi bộ gõ.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 12h8"></path></svg>
+        </div>
+        <h3>Báo hiệu kín đáo</h3>
+        <p>
+          Một ô kính mờ hiện giữa màn hình 0,6 giây rồi tan. Chữ trượt dọc khi đổi
+          trạng thái. Không còn phải đoán xem mình đang gõ tiếng gì.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="giao-dien" class="ui">
+    <h2>Cửa sổ Cài đặt</h2>
+    <p class="sub">
+      Viết lại bằng SwiftUI theo kiểu System Settings của macOS. Bấm thử các mục
+      bên dưới.
+    </p>
+
+    <div class="window" role="group" aria-label="Minh hoạ cửa sổ Cài đặt của KietKey">
+      <div class="titlebar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="title">KietKey</span>
+      </div>
+      <div class="window-body">
+        <aside class="sidebar">
+          <div class="search"><span>Tìm cài đặt</span></div>
+          <button class="nav-item is-active" data-pane="typing">Gõ tiếng Việt</button>
+          <button class="nav-item" data-pane="hotkeys">Phím chuyển</button>
+          <button class="nav-item" data-pane="apps">Ứng dụng &amp; Website</button>
+          <button class="nav-item" data-pane="macro">Gõ tắt</button>
+          <button class="nav-item" data-pane="advanced">Nâng cao</button>
+          <div class="side-foot">KietKey 2.0.4<br>Không kết nối Internet</div>
+        </aside>
+
+        <div class="content">
+
+          <div class="pane is-shown" id="pane-typing">
+            <div class="status">
+              <span class="badge">V</span>
+              <span class="status-text">
+                <strong>Gõ tiếng Việt</strong>
+                <small>Đang bật — dùng phím chuyển để tắt bất cứ lúc nào</small>
+              </span>
+              <span class="switch on"></span>
+            </div>
+            <div class="group">
+              <div class="row"><span>Kiểu gõ</span><span class="pill">Telex</span></div>
+              <div class="row"><span>Bảng mã</span><span class="pill">Unicode</span></div>
+              <div class="row"><span>Đặt dấu kiểu mới<small>oà, uý thay vì òa, úy</small></span><span class="switch"></span></div>
+              <div class="row"><span>Gõ nhanh<small>cc = ch, gg = gi, kk = kh…</small></span><span class="switch"></span></div>
+              <div class="row"><span>Viết hoa chữ cái đầu câu</span><span class="switch"></span></div>
+            </div>
+            <h4>Khi bộ gõ của macOS đổi sang tiếng khác</h4>
+            <div class="group">
+              <div class="row"><span class="radio"></span><span>Không can thiệp</span></div>
+              <div class="row"><span class="radio on"></span><span>Nhường bộ gõ hệ thống<small>Tự tắt tiếng Việt của KietKey</small></span></div>
+              <div class="row"><span class="radio"></span><span>Khoá ở ABC<small>Chỉ áp dụng khi đang gõ tiếng Việt</small></span></div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-hotkeys">
+            <h4>Tổ hợp bật/tắt tiếng Việt</h4>
+            <div class="group">
+              <div class="row"><span class="keys"><kbd>⌃</kbd><kbd>⇧</kbd></span><span class="grow"></span><span class="minus">−</span></div>
+              <div class="row"><span class="keys"><kbd>fn</kbd><kbd>⇧</kbd></span><span class="grow"></span><span class="minus">−</span></div>
+              <div class="row"><span class="keys"><kbd>⌥</kbd><kbd>Z</kbd></span><span class="grow"></span><span class="minus">−</span></div>
+              <div class="row add">+ Thêm tổ hợp</div>
+            </div>
+            <div class="group">
+              <div class="row"><span>Hiện báo hiệu giữa màn hình<small>Thay cho tiếng beep</small></span><span class="switch on"></span></div>
+              <div class="row"><span>Kêu beep khi chuyển</span><span class="switch"></span></div>
+              <div class="row"><span>Dùng phím chuyển bộ gõ của macOS<small>⌃Space bật/tắt tiếng Việt</small></span><span class="switch on"></span></div>
+              <div class="row"><span>Tạm tắt bằng phím ⌘</span><span class="switch"></span></div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-apps">
+            <div class="group">
+              <div class="row"><span>Tự ghi nhớ tiếng Việt / English theo ứng dụng</span><span class="switch on"></span></div>
+              <div class="row"><span>Tự ghi nhớ bảng mã theo ứng dụng</span><span class="switch"></span></div>
+            </div>
+            <h4>Ứng dụng</h4>
+            <div class="group">
+              <div class="row"><span>Terminal<small>com.apple.Terminal</small></span><span class="pill">Luôn tắt tiếng Việt</span></div>
+              <div class="row"><span>Xcode<small>com.apple.dt.Xcode</small></span><span class="pill">Luôn tắt tiếng Việt</span></div>
+              <div class="row"><span>Mail<small>com.apple.mail</small></span><span class="pill">Luôn bật tiếng Việt</span></div>
+              <div class="row add">+ Thêm ứng dụng</div>
+            </div>
+            <h4>Website</h4>
+            <div class="group">
+              <div class="row"><span>github.com<small>Áp dụng cho cả tên miền con</small></span><span class="pill">Luôn tắt tiếng Việt</span></div>
+              <div class="row"><span>messenger.com<small>Áp dụng cho cả tên miền con</small></span><span class="pill">Luôn bật tiếng Việt</span></div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-macro">
+            <div class="group">
+              <div class="row"><span>Cho phép gõ tắt</span><span class="switch on"></span></div>
+              <div class="row"><span>Gõ tắt cả khi đang tắt tiếng Việt</span><span class="switch"></span></div>
+              <div class="row"><span>Tự động viết hoa theo phím tắt</span><span class="switch on"></span></div>
+              <div class="row"><span>Bảng gõ tắt</span><span class="pill">Mở…</span></div>
+            </div>
+            <h4>Gõ tắt phụ âm</h4>
+            <div class="group">
+              <div class="row"><span>Phụ âm đầu<small>f → ph, j → gi, w → qu…</small></span><span class="switch"></span></div>
+              <div class="row"><span>Phụ âm cuối<small>g → ng, h → nh, k → ch…</small></span><span class="switch"></span></div>
+            </div>
+          </div>
+
+          <div class="pane" id="pane-advanced">
+            <h4>Khởi động &amp; biểu tượng</h4>
+            <div class="group">
+              <div class="row"><span>Khởi động cùng macOS</span><span class="switch on"></span></div>
+              <div class="row"><span>Hiện biểu tượng trên thanh Dock</span><span class="switch"></span></div>
+              <div class="row"><span>Biểu tượng hiện đại trên thanh menu<small>Hợp với chế độ tối</small></span><span class="switch on"></span></div>
+            </div>
+            <h4>Tương thích</h4>
+            <div class="group">
+              <div class="row"><span>Sửa lỗi gợi ý<small>Trình duyệt, Excel và các ô có gợi ý</small></span><span class="switch on"></span></div>
+              <div class="row"><span>Tương thích Telex trên layout khác<small>Dvorak, Colemak…</small></span><span class="switch"></span></div>
+              <div class="row"><span>Gửi từng phím<small>Chậm hơn; chỉ bật khi gõ bị lỗi</small></span><span class="switch"></span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="cai-dat" class="install">
+    <h2>Cài đặt</h2>
+    <div class="install-grid">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Tải về</h3>
+        <p>
+          Lấy bản mới nhất ở trang
+          <a href="https://github.com/netcell/KietKey/releases">Releases</a>,
+          giải nén rồi kéo <code>KietKey.app</code> vào <code>/Applications</code>.
+        </p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Cấp quyền</h3>
+        <p>
+          Mở app, bấm <em>Cấp quyền</em>, rồi bật KietKey trong
+          <strong>System Settings → Privacy &amp; Security → Accessibility</strong>.
+          Mọi bộ gõ đều cần quyền này để đọc phím bạn bấm.
+        </p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Tắt bộ gõ khác</h3>
+        <p>
+          Nếu đang dùng EVKey, GoTiengViet hay Unikey thì tắt hẳn — hai bộ gõ chạy
+          cùng lúc sẽ gõ sai.
+        </p>
+      </div>
+    </div>
+
+    <h3 class="build-title">Hoặc tự build từ mã nguồn</h3>
+    <pre><code>git clone https://github.com/netcell/KietKey.git
+cd KietKey
+OPENKEY_SIGN_ID="-" ./build.sh</code></pre>
+    <p class="note">
+      Cần Xcode 26 trở lên. Script tự kiểm tra binary không có symbol mạng và
+      <em>dừng build</em> nếu có.
+    </p>
+  </section>
+
+  <section class="privacy">
+    <h2>Về quyền riêng tư</h2>
+    <p>
+      Một bộ gõ đọc được mọi phím bạn bấm, kể cả mật khẩu. Nên đáng để nói rõ
+      KietKey làm gì với chúng: <strong>không gì cả.</strong> Phím được xử lý
+      trong bộ nhớ rồi gửi lại cho ứng dụng đang gõ. Không ghi ra file, không gửi
+      đi đâu, vì app không có khả năng kết nối mạng.
+    </p>
+    <p>
+      Quy tắc theo website cần đọc tên miền của tab đang xem qua Accessibility.
+      Tính năng này <strong>mặc định tắt</strong>, chỉ chạy khi bạn tự thêm quy tắc,
+      và chỉ lấy tên miền chứ không lấy đường dẫn hay nội dung trang.
+    </p>
+    <p>
+      Mã nguồn công khai theo giấy phép GPL. Bạn có thể đọc, sửa, và tự build.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <p>
+      <strong>KietKey</strong> — bản phát triển riêng từ
+      <a href="https://github.com/tuyenvm/OpenKey">OpenKey</a> của Mai Vũ Tuyên,
+      chỉ dành cho macOS. Giấy phép GPL.
+    </p>
+    <p class="muted">
+      <a href="https://github.com/netcell/KietKey">Mã nguồn</a> ·
+      <a href="https://github.com/netcell/KietKey/releases">Tải về</a> ·
+      <a href="https://github.com/netcell/KietKey/issues">Báo lỗi</a>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
