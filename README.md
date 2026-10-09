@@ -1,105 +1,78 @@
+# KietKey
 
-# [OpenKey](http://open-key.org)
-### [Download bản mới nhất](https://github.com/tuyenvm/OpenKey/releases)
-[![GitHub release](https://img.shields.io/github/v/release/tuyenvm/OpenKey.svg)](https://github.com/tuyenvm/OpenKey/releases/latest)
+Bộ gõ tiếng Việt cho macOS. **Không kết nối Internet.**
 
-### Open source Vietnamese Input App for macOS - Bộ gõ tiếng Việt nguồn mở cho macOS.
-Bộ gõ tiếng Việt mới cho macOS, sử dụng kỹ thuật `Backspace`. Loại bỏ lỗi gạch chân khó chịu ở bộ gõ mặc định. Hoàn toàn miễn phí và là nguồn mở, luôn cập nhật và phát triển.
+Website: [kietkey.anhnt.com](https://kietkey.anhnt.com)
 
-### Mã nguồn của ứng dụng được mở công khai, minh bạch dưới giấy phép GPL. Điều này nghĩa là bạn hoàn toàn có thể tải mã nguồn về tự build, cải tiến theo mục đích của bạn. Nếu bạn tái phân phối bản cải tiến của bạn, thì nó cũng phải là mã nguồn mở và thông báo bản gốc là OpenKey.
+KietKey là bản phát triển riêng từ [OpenKey](https://github.com/tuyenvm/OpenKey)
+của Mai Vũ Tuyên, chỉ tập trung cho macOS. Giấy phép GPL, giữ nguyên như bản gốc.
 
-### Lưu ý, khi sử dụng OpenKey, bạn nên tắt hẳn bộ gõ khác vì 2 chương trình bộ gõ sẽ xung đột nhau, dẫn đến thao tác không chính xác.
+## Khác gì so với OpenKey
 
-![Giao diện](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-main-control.png "Main UI")
-![Giao diện](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-main-control-2.png "Main UI")
-![Giao diện](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-main-control-3.png "Main UI")
-![Menu](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-small-control.png "Menu bar")
-![Gõ tắt](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-macro.png "Macro")
-![Chuyển mã](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-convert-tool.png "ConvertTool")
+**Không có một dòng code mạng nào.** Toàn bộ phần kiểm tra bản mới và tự cập nhật
+đã bị gỡ. Script build tự kiểm tra lại binary và **dừng build** nếu có symbol hay
+framework mạng lọt vào.
 
-## Hỗ trợ kiểu gõ
-- Telex
-- VNI
-- Simple Telex
+**Báo hiệu giữa màn hình** khi chuyển tiếng Việt / English, thay cho tiếng beep.
+Chữ trượt dọc khi đổi trạng thái.
 
-## Bảng mã thông dụng:
-- Unicode (Unicode dựng sẵn).
-- TCVN3 (ABC).
-- VNI Windows.
-- Unicode Compound (Unicode tổ hợp).
-- Vietnamese Locale CP 1258.
-- ...
+**Đồng bộ với bộ gõ của macOS.** Ba chế độ: không can thiệp, nhường bộ gõ hệ thống,
+hoặc khoá ở ABC khi đang gõ tiếng Việt — để không xung đột với Simple Telex.
 
-## Tính năng:
-- **Modern orthography** (On/Off) - Đặt dấu oà, uý thay vì òa, úy.
-- **Quick Telex** (On/Off) - Gõ nhanh (cc=ch, gg=gi, kk=kh, nn=ng, qq=qu, pp=ph, tt=th).
-- **Grammar check** (On/Off) - Kiểm tra ngữ pháp.
-- **Spelling check** (On/Off) - Kiểm tra chính tả.
-- **Restore key if invalid word** (on/off) - Phục hồi phím với từ sai.
-- **Run on startup** (On/Off) - Chạy cùng macOS.
-- **Gray menu bar icon** (On/Off) - Biểu tượng xám trên thanh menu phù hợp với chế độ Dark mode.
-- **Switch input mode by shortcut key** - Đổi chế độ gõ bằng phím tắt tùy chọn.
-- **Autocorrect fixed** (On/Off) - Sửa lỗi autocorrect trên trình duyệt như Chrome, Safari, Firefox, Microsoft Excel.
-- **Underline issue fixed on macOS** (On/Off) - Sửa lỗi gạch chân trên macOS.
-- **Tạm tắt kiểm tra chính tả bằng phím Ctrl** (On/Off) (Bản 1.5 về sau).
-- **Tạm tắt OpenKey bằng phím Cmd/Alt** (On/Off) (Bản 2.0.1 về sau).
-- **Cho phép dùng f z w j làm phụ âm đầu** (On/Off) (Bản 1.5 về sau).
-- **Gõ tắt phụ âm đầu: f->ph, j->gi, w->qu** (On/Off) (Bản 1.6 về sau).
-- **Gõ tắt phụ âm cuối: g->ng, h->nh, k->ch** (On/Off) (Bản 1.6 về sau).
-- **Hiện biểu tượng trên thanh Dock** (On/Off) (Bản 2.0.1 về sau). Bấm vào icon trên thanh Dock sẽ mở nhanh Bảng điều khiển.
-- **Macro** - Tính năng gõ tắt vô cùng tiện lợi. Gõ tắt của macOS chỉ hỗ trợ 20 ký tự, còn OpenKey không giới hạn ký tự.
-- **Chuyển chế độ thông minh:** (On/Off) (Bản 1.2 về sau) - Bạn đang dùng chế độ gõ Tiếng Việt trên ứng dụng A, bạn chuyển qua ứng dụng B trước đó bạn dùng chế độ gõ Tiếng Anh, OpenKey sẽ tự động chuyển qua chế độ gõ Tiếng Anh cho bạn, khi bạn quay lại ứng dụng A, OpenKey tất nhiên sẽ chuyển lại chế độ gõ tiếng Việt, rất cơ động.
-- **Viết Hoa chữ cái đầu câu** (On/Off) (Bản 1.2 về sau) - Khi gõ văn bản dài, đôi khi bạn quên ghi hoa chữ cái đầu câu khi kết thúc một câu hoặc khi xuống hàng, tính năng này sẽ tự ghi hoa chữ cái đầu câu cho bạn, thật tuyệt vời.
-- **Chế độ “Gửi từng phím”:** (On/Off) (Bản 1.1 về sau) mặc định dùng kỹ thuật mới gửi dữ liệu 1 lần thay vì gửi nhiều lần cho chuỗi ký tự, nên nếu có ứng dụng nào không tương thích, hãy bật tính năng này lên, mặc định thì nên tắt vì kỹ thuật mới sẽ chạy nhanh hơn.
-- **Cập nhật tự động:** (Bản 1.3 về sau) tính năng hỗ trợ cập nhật phiên bản OpenKey mới nhất mỗi khi mở OpenKey hoặc tự check trong phần mục Giới thiệu.
-- **Công cụ chuyển mã:** (Bản 1.4 về sau) hỗ trợ chuyển mã qua lại văn bản, thích hợp cho việc chuyển đổi văn bản cũ viết bằng VNI, TCVN3 qua Unicode,... Hỗ trợ cấu hình phím tắt chuyển mã nhanh, bảng cấu hình tùy chọn chuyển mã.
-- **Tự ghi nhớ bảng mã theo ứng dụng:** (Bản 2.0.1 về sau) Phù hợp cho các bạn dùng Photoshop, CAD,... với các bảng mã VNI, TCVN3. OpenKey tự ghi nhớ ứng dụng nào dùng bảng mã nào để lần sau sử dụng Photoshop, CAD,... OpenKey có thể tự chuyển sang bảng mã đó.
-- ...
+**Nhiều tổ hợp phím chuyển** cùng lúc, thêm cả phím `fn`. Máy bàn dùng `⌃⇧`,
+MacBook dùng `fn⇧`, không phải đổi qua lại.
 
+**Quy tắc theo ứng dụng và website.** Mỗi app chọn *luôn tắt* / *luôn bật* /
+*nhớ lần cuối*. Website đặt theo tên miền, khớp cả tên miền con.
 
-[Changelog](https://github.com/tuyenvm/OpenKey/blob/master/CHANGELOG.md)
+**Chiếm phím đổi bộ gõ của macOS** (`⌃Space`) để bật/tắt tiếng Việt.
 
-## Cài đặt:
-**Cài đặt thủ công:**  
-Tải bản OpenKey mới nhất từ [đây](https://github.com/tuyenvm/OpenKey/releases/latest), mở file `dmg` ra rồi kéo thả `OpenKey.app` vào thư mục `Application`.
+**Cửa sổ Cài đặt mới** viết bằng SwiftUI, theo kiểu System Settings của macOS.
 
-**Cài bằng Homebrew:** (by nhymxu)  
-Nếu chưa cài Homebrew, mở terminal, nhập:
-```
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+## Yêu cầu
+
+macOS 26 trở lên. Cần cấp quyền Accessibility — bắt buộc với mọi bộ gõ.
+
+## Tự build
+
+Cần Xcode 26 trở lên.
+
+```bash
+git clone https://github.com/netcell/KietKey.git
+cd KietKey
+OPENKEY_SIGN_ID="-" ./build.sh
 ```
 
-Kiểm tra phiên bản OpenKey:
-```
-$ brew info --cask openkey
-```
-Gõ lệnh sau để homebrew tự cài OpenKey cho bạn:
-```
-$ brew install --cask openkey
+Ký ad-hoc như trên thì mỗi lần build lại phải cấp lại quyền Accessibility, vì
+macOS gắn quyền theo chữ ký. Muốn chữ ký ổn định thì tạo một certificate tự ký
+tên bất kỳ rồi truyền vào `OPENKEY_SIGN_ID`.
+
+Để phân phối cho máy khác mà không bị Gatekeeper chặn thì cần Developer ID +
+notarize:
+
+```bash
+OPENKEY_SIGN_ID="Developer ID Application: ... (TEAMID)" \
+OPENKEY_NOTARIZE_PROFILE=<tên hồ sơ notarytool> \
+./build.sh
 ```
 
-Để update phiên bản mới nhất của OpenKey
+`build.sh` tự bật Hardened Runtime, thêm secure timestamp, gỡ entitlement debug,
+gửi Apple notarize rồi staple. Có hai bước kiểm tra chạy ngay trên máy nên hỏng
+gì sẽ fail trước khi tốn một vòng gửi lên Apple.
+
+> Lưu ý: `notarytool` lưu hồ sơ trong data-protection keychain với thuộc tính
+> *WhenUnlocked*. **Khoá màn hình là không notarize được.** Muốn build tự động
+> thì dùng App Store Connect API key (`OPENKEY_NOTARIZE_KEY`).
+
+## Cấu trúc
+
 ```
-$ brew upgrade --cask openkey
+Sources/OpenKey/engine/   engine xử lý tiếng Việt, C++ thuần (chung với OpenKey)
+Sources/OpenKey/macOS/    ứng dụng macOS
+site/                     website
+build.sh                  build + ký + notarize + cài
 ```
 
-## Note - Lưu ý:
-OpenKey cần cấp quyền, vào *System Preferences -> Security & Privacy -> Accessibility*, kích hoạt `OpenKey.app`. **Không tắt nó khi đang dùng OpenKey**.
-![Guide](https://raw.githubusercontent.com/tuyenvm/tuyenvm.github.io/master/images/openkey-guide.png "Accessibility").
+## Giấy phép
 
-## Tác giả
-- Mai Vũ Tuyên.
-- Mọi góp ý, gửi cho mình qua maivutuyen.91@gmail.com  
-- Fanpage: [https://www.facebook.com/OpenKeyVN](https://www.facebook.com/OpenKeyVN)
-
-## Liên kết
-- [OpenKey cho Windows, xem chi tiết tại đây](https://github.com/tuyenvm/OpenKey/tree/master/Sources/OpenKey/win32)
-- [OpenKey cho Linux (đang phát triển)](https://github.com/tuyenvm/OpenKey/tree/master/Sources/OpenKey/linux)
-## Một điều nhỏ nhoi
-Đừng quên ủng hộ tác giả bằng cách mua ly cafe cho tác giả tỉnh ngủ nhé:  
-[Buy me a coffee ^^](https://tuyenvm.github.io/donate.html)  
-[Redbull cũng được ^^](https://paypal.me/tuyenmai)  
-Hoặc trực tiếp qua ví momo:   
-![Donate by momo](https://tuyenvm.github.io/images/momo.png "Momo").   
-
-Cảm ơn các bạn rất nhiều.
+GPL, kế thừa từ OpenKey. Mã nguồn gốc: https://github.com/tuyenvm/OpenKey

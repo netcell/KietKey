@@ -1,14 +1,16 @@
-
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-.DS_Store
+# Build
 .build/
-/Sources/OpenKey/win32/OpenKey/.vs/OpenKey
-/Sources/OpenKey/win32/OpenKey/OpenKey/x64/Debug
-/Sources/OpenKey/win32/OpenKey/OpenKey/x64/Release
-/Sources/OpenKey/win32/OpenKey/OpenKeyUpdate/x64/Release
-/Sources/OpenKey/win32/OpenKey/x64/Debug
-/Sources/OpenKey/win32/OpenKey/x64/Release
-distribution.cer
-openkey-signing-cert.p12
-﻿################################################################################
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# macOS
+.DS_Store
+
+# Chữ ký — KHÔNG commit
+*.p12
+*.cer
+*.p8
+
+# Website
+site/node_modules/
